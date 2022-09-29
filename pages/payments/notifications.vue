@@ -3,10 +3,10 @@
     <div class="p-5 border-b flex flex-row justify-between">
       <div>
         <p class="font-bold text-primary text-3xl">
-          Payments Notifications
+          Payment Notifications
         </p>
         <p class="text-sm font-light">
-          List of recent payments
+          List of recent notifications
         </p>
       </div>
     </div>
@@ -56,6 +56,9 @@
             {{ t.id }}
           </th>
           <td class="py-4 px-6">
+            {{ t.paymentReference }}
+          </td>
+          <td class="py-4 px-6">
             {{ t.amount }}
           </td>
           <td class="py-4 px-6">
@@ -67,9 +70,7 @@
           <td class="py-4 px-6">
             {{ t.controlNumber }}
           </td>
-          <td class="py-4 px-6">
-            {{ t.paymentReference }}
-          </td>
+
           <td class="py-4 px-6">
             {{ t.transactionDate | dateformat }}
           </td>
@@ -82,28 +83,39 @@
         </tr>
       </tbody>
     </table>
+    <pagination-component :page="page" :pages="pages" @update="updatepage($event)" />
   </div>
 </template>
 <script >
-import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      fields: ['ID', 'Amount', 'Unit', 'Tariff', 'Control No', 'Referecence', 'Transaction Date', 'Recorderd Date', 'Updated Date'],
-      menu: false
+      fields: ['ID', 'Referecence', 'Amount', 'Unit', 'Tariff', 'Control No', 'Transaction Date', 'Recorderd Date', 'Updated Date'],
+      menu: false,
+      page: 1,
+      pages: 0,
+      notifications: null
     }
   },
-  computed: {
-    ...mapGetters({
-      notifications: 'paymentnotifications'
-    })
-  },
   created () {
-    this.$store.dispatch('_fetchtpaymentsnotifications')
+    this.fetchpagenatednotifications()
   },
   methods: {
-    openmenu () {
-      this.menu = !this.menu
+
+    updatepage (it) {
+      this.notifications = null
+      this.page = it
+      this.fetchpagenatednotifications(it)
+    },
+    async fetchpagenatednotifications () {
+      await this.$api
+        .$get('/payments/notifications/paginate', { params: { page: this.page, size: Math.round(window.innerHeight / 64) } })
+        .then((response) => {
+          this.notifications = response.results
+          this.pages = response.totalPages
+        })
+        .catch((_error) => {
+        })
     }
   }
 }

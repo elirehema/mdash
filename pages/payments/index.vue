@@ -85,28 +85,43 @@
         </tr>
       </tbody>
     </table>
+    <pagination-component :page="page" :pages="pages" @update="updatepage($event)" />
   </div>
 </template>
 <script >
-import { mapGetters } from 'vuex'
+import PaginationComponent from '@/components/pagination-component.vue'
 export default {
+  components: {
+    'pagination-component': PaginationComponent
+  },
   data () {
     return {
       fields: ['ID', 'Amount', 'Unit', 'Tariff', 'Control No', 'Referecence', 'Transaction Date', 'Recorderd Date', 'Updated Date'],
-      menu: false
+      menu: false,
+      page: 1,
+      pages: 0,
+      payments: null
     }
   },
-  computed: {
-    ...mapGetters({
-      payments: 'payments'
-    })
-  },
   created () {
-    this.$store.dispatch('_fetchtpayments')
+    this.fetchpagenatedpayments()
   },
   methods: {
-    openmenu () {
-      this.menu = !this.menu
+
+    updatepage (it) {
+      this.payments = null
+      this.page = it
+      this.fetchpagenatedpayments(it)
+    },
+    async fetchpagenatedpayments () {
+      await this.$api
+        .$get('/payments/paginate', { params: { page: this.page, size: Math.round(window.innerHeight / 64) } })
+        .then((response) => {
+          this.payments = response.results
+          this.pages = response.totalPages
+        })
+        .catch((_error) => {
+        })
     }
   }
 }

@@ -14,7 +14,7 @@ const mutations = {
   },
   'GET_PURCHASES_SUCCESS' (state, payload) {
     state.showLoader = false
-    state.purchases = payload
+    state.purchases = payload.results
   }
 }
 
@@ -22,7 +22,7 @@ const actions = {
   async _fetchcreditpurchases ({ commit }) {
     commit('GET_PURCHASES')
     await this.$api
-      .$get('/purchases')
+      .$get('/purchases/paginate?page=0')
       .then((response) => {
         commit('GET_PURCHASES_SUCCESS', response)
       })

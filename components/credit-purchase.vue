@@ -80,6 +80,7 @@
         </tr>
       </tbody>
     </table>
+    <pagination-component :page="page" :pages="pages" @update="updatepage($event)" />
   </div>
   <div v-else class="grid grid-cols-2 py-10 justify-center content-center">
     <div class="justify-self-end">
@@ -100,22 +101,44 @@
   </div>
 </template>
 <script >
+import PaginationComponent from './pagination-component.vue'
 export default {
+  components: {
+    'pagination-component': PaginationComponent
+  },
   props: {
-    purchases: {
-      type: Array,
-      default: null
-    }
+
   },
   data () {
     return {
       fields: ['Control Number', 'MeterID', 'Amount', 'Purchased Units', 'Effective Units', 'Offsets', 'Payment Ref', 'Tariff', 'Transaction Date', 'Created', 'Updated'],
-      menu: false
+      menu: false,
+      page: 1,
+      pages: 0,
+      purchases: null
     }
+  },
+  created () {
+    this.fetchcreditpurchases()
   },
   methods: {
     viewCredit (it) {
       this.$router.push({ path: `purchases/${it}` })
+    },
+    updatepage (it) {
+      this.purchases = null
+      this.page = it
+      this.fetchcreditpurchases(it)
+    },
+    async fetchcreditpurchases () {
+      await this.$api
+        .$get('/purchases/paginate', { params: { page: this.page, size: Math.round(window.innerHeight / 64) } })
+        .then((response) => {
+          this.purchases = response.results
+          this.pages = response.totalPages
+        })
+        .catch((_error) => {
+        })
     }
   }
 
