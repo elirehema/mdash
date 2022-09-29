@@ -1,4 +1,4 @@
-const routerBase = process.env.DEPLOY_ENV === 'production' ? '/toss/' : '/';
+const routerBase = process.env.DEPLOY_ENV === 'production' ? '/toss/' : '/'
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -6,7 +6,7 @@ export default {
   router: {
     mode: 'hash',
     base: routerBase,
-    routerNameSplitter: "/",
+    routerNameSplitter: '/',
     middleware: ['router']
   },
   env: {
@@ -16,7 +16,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'qgasapp',
+    title: 'NextIoT Dashboard',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -30,12 +30,13 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/css/main.css',
+    '@/assets/css/main.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/axios',
+    '~/plugins/filters'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -56,9 +57,24 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/toast',
 
-    ['cookie-universal-nuxt', { parseJSON: false }],
+    'cookie-universal-nuxt'
   ],
+  toast: {
+    position: 'top-right',
+    duration: 5000,
+    theme: 'bubble',
+    register: [ // Register custom toasts
+      {
+        name: 'my-error',
+        message: 'Oops...Something went wrong',
+        options: {
+          type: 'error'
+        }
+      }
+    ]
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -82,8 +98,12 @@ export default {
     postcss: {
       plugins: {
         tailwindcss: {},
-        autoprefixer: {},
-      },
-    },
+        autoprefixer: {}
+      }
+    }
+  },
+  server: {
+    port: 8000, // default: 3000
+    host: '0.0.0.0' // default: localhost
   }
 }

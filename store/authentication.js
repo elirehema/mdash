@@ -1,81 +1,99 @@
 const state = () => ({
   showLoader: Boolean,
   profile: {},
-  client: {},
-  tenant: "",
-});
+  account: {},
+  tenant: ''
+})
 
 const mutations = {
-  ["AUTHENTICATE"](state) {
-    state.showLoader = true;
+  'AUTHENTICATE' (state) {
+    state.showLoader = true
   },
-  ["AUTHENTICATE_FAILED"](state) {
-    state.showLoader = false;
+  'AUTHENTICATE_FAILED' (state) {
+    state.showLoader = false
   },
-  ["AUTHENTICATE_ERROR"](state) {
-    state.showLoader = false;
+  'AUTHENTICATE_ERROR' (state) {
+    state.showLoader = false
   },
-  ["AUTHENTICATE_SUCCESS"](state, payload) {
-    state.showLoader = false;
-    state.profile = payload;
-    window.localStorage.setItem("accessToken",payload.accessToken);
-    this.$router.push("/");
+  'AUTHENTICATE_SUCCESS' (state, payload) {
+    state.showLoader = false
+    state.profile = payload
+    window.localStorage.setItem('userId', payload.id)
+    window.localStorage.setItem('accessToken', payload.accessToken)
+    this.$router.push('/')
   },
+  'GET_ACCOUNT' (state) {
+    state.showLoader = true
+  },
+  'GET_ACCOUNT_FAILED' (state) {
+    state.showLoader = false
+  },
+  'GET_ACCOUNT_ERROR' (state) {
+    state.showLoader = false
+  },
+  'GET_ACCOUNT_SUCCESS' (state, payload) {
+    state.showLoader = false
+    state.account = payload
+  }
 
-  
-};
+}
 const actions = {
-  async _authenticate({ commit }, requestbody) {
-    commit("AUTHENTICATE");
+  async _authenticate ({ commit }, requestbody) {
+    commit('AUTHENTICATE')
     await this.$api
-      .$post("/users/signin", requestbody)
+      .$post('/signin', requestbody)
       .then((response) => {
-        commit("AUTHENTICATE_SUCCESS", response);
-        
+        commit('AUTHENTICATE_SUCCESS', response)
+        this.$toast.success(`Welcome ${response.firstname}`)
       })
-      .catch((error) => {
-        console.log(error);
-        commit("AUTHENTICATE_ERROR");
-      });
+      .catch(() => {
+        commit('AUTHENTICATE_ERROR')
+      })
+  },
+  async _fetchuseraccount ({ commit }) {
+    const accountId = localStorage.getItem('userId')
+    commit('GET_ACCOUNT')
+    await this.$api
+      .$get(`/users/${accountId}`)
+      .then((response) => {
+        commit('GET_ACCOUNT_SUCCESS', response)
+      })
+      .catch((_error) => {
+        commit('GET_ACCOUNT_ERROR')
+      })
   },
 
-
-  async _logoutsession({ commit }) {
-    //window.localStorage.clear();
-    window.localStorage.removeItem("vuex");
-    //window.localStorage.removeItem("accessToken");
-    sessionStorage.clear();
-    this.$router.push("/signin");
-  },
-};
+  async _logoutsession ({ }) {
+    window.localStorage.clear()
+    sessionStorage.clear()
+    this.$router.push('/signin')
+  }
+}
 const getters = {
-  accessToken: function (state) {
-    return window.localStorage.getItem("accessToken");
+  accessToken (state) {
+    return window.localStorage.getItem('accessToken')
   },
-  clientId: function (state) {
-    return state.client.id;
+  profile (state) {
+    return state.profile
   },
-  client: function (state) {
-    return state.client;
+  isAuthenticated (state) {
+    return window.localStorage.getItem('accessToken') != null
   },
-  profile: function (state) {
-    return state.profile;
+  account (state) {
+    return state.account
   },
-  isAuthenticated: function (state) {
-    return window.localStorage.getItem("accessToken") == null ? false : true;
+  isadmin (state) {
+    return (state.account.role === 'ADMIN')
   },
-  tenant: function (state) {
-    var _tenant = state.tenant;
-    console.log("STATE TENANT: " + _tenant);
-    return _tenant == null ? "demo" : _tenant;
-  },
-
-};
+  companyId (state) {
+    return state.account.companyId
+  }
+}
 
 export default {
   namespaced: false,
   state,
   mutations,
   actions,
-  getters,
-};
+  getters
+}
