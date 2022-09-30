@@ -11,7 +11,7 @@
       </div>
       <div>
         <nuxt-link to="/meters/add">
-          <button type="button" class="bg-primary font-bold text-white p-2 px-3 rounded-lg border border-primary">
+          <button type="button" class="button">
             + New Meter
           </button>
         </nuxt-link>
@@ -29,9 +29,6 @@
         <tr>
           <th v-for="(field, i) in fields" :key="i" scope="col" class="py-3 ">
             {{ field }}
-          </th>
-          <th scope="col" class="py-3 ">
-            <span class="sr-only">Edit</span>
           </th>
         </tr>
       </thead>
@@ -77,24 +74,13 @@
           <td class="py-4 ">
             {{ c.Bill.offSet }}
           </td>
-          <td class="py-4 ">
-            <svg v-if="!c.isValveClosed" class="fill-blue-500 ml-5" style="width:32px; height:32px" viewBox="0 0 24 24">
-              <path d="M4 22H2V2H4M22 2H20V22H22M11 4V9.18A3 3 0 0 0 11 14.82V20H13V14.82A3 3 0 0 0 13 9.18V4Z" />
+          <td class="py-4">
+            <svg v-if="c.isValveClosed" class="fill-red-500 ml-5" style="width:24px; height:24px" viewBox="0 0 24 24">
+              <path d="M20.84 22.73L16.29 18.18C15.2 19.3 13.69 20 12 20C8.69 20 6 17.31 6 14C6 12.67 6.67 11.03 7.55 9.44L1.11 3L2.39 1.73L22.11 21.46L20.84 22.73M18 14C18 10 12 3.25 12 3.25S10.84 4.55 9.55 6.35L17.95 14.75C18 14.5 18 14.25 18 14Z" />
             </svg>
-            <svg v-else class="fill-red-500 ml-5" style="width:32px; height:32px" viewBox="0 0 24 24">
-              <path d="M22 2V22H20V13H14.82A3 3 0 0 1 9.18 13H4V22H2V2H4V11H9.18A3 3 0 0 1 14.82 11H20V2Z" />
+            <svg v-else class="fill-plainblue ml-5" style="width:24px; height:24px" viewBox="0 0 24 24">
+              <path d="M21.75 16.25L17 21L14.25 18L15.41 16.84L17 18.43L20.59 14.84L21.75 16.25M17.62 12C16.31 8.1 12 3.25 12 3.25S6 10 6 14C6 17.31 8.69 20 12 20H12.34C12.12 19.36 12 18.7 12 18C12 14.82 14.5 12.22 17.62 12Z" />
             </svg>
-          </td>
-          <td class="py-4  text-right">
-            <a
-              href="#"
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-              "
-            >Edit</a>
           </td>
         </tr>
       </tbody>

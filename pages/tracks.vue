@@ -14,10 +14,10 @@
       </nuxt-link>
     </div>
     <usage-track :tracks="tracks" />
+    <pagination-component :page="page" :pages="pages" @update="updatepage($event)" />
   </div>
 </template>
 <script >
-import { mapGetters } from 'vuex'
 import MeterUsageTrackComponent from '~/components/usage-track.vue'
 export default {
   name: 'NuxtTutorial',
@@ -26,20 +26,29 @@ export default {
   },
   data () {
     return {
-      menu: false
+      page: 1,
+      pages: 0,
+      tracks: null
     }
   },
-  computed: {
-    ...mapGetters({
-      tracks: 'tracks'
-    })
-  },
   created () {
-    this.$store.dispatch('_fetchusagetracks')
+    this.fetchpagenatedusagetracks()
   },
   methods: {
-    openmenu () {
-      this.menu = !this.menu
+    updatepage (page) {
+      this.tracks = null
+      this.page = page
+      this.fetchpagenatedusagetracks()
+    },
+    async fetchpagenatedusagetracks () {
+      await this.$api
+        .$get('/tracks/paginate', { params: { page: this.page, size: Math.round(window.innerHeight / 64) } })
+        .then((response) => {
+          this.tracks = response.results
+          this.pages = response.totalPages
+        })
+        .catch((_error) => {
+        })
     }
   }
 

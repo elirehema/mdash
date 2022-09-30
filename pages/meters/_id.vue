@@ -1,6 +1,6 @@
 <template>
   <div v-if="meter" class="container p-5 min-w-full">
-    <div class="p-5 border-b flex justify-between flex-col lg:flex-row bg-emerald-100">
+    <div class="p-5 border-b flex justify-between flex-col lg:flex-row bg-gray-100">
       <div>
         <p class="font-bold text-primary  flex flex-row" />
 

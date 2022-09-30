@@ -16,6 +16,9 @@
 .btn{
     @apply rounded-full py-5 px-3 uppercase text-xs font-bold cursor-pointer tracking-wider;
 }
+.button{
+    @apply bg-primary font-bold text-white p-2 px-3 rounded-2xl border border-primary
+}
 .nav{
     @apply text-white hover:text-primary font-bold py-4 rounded-l-3xl ml-3 bg-primary hover:bg-gray-100 active:bg-gray-100;
 }

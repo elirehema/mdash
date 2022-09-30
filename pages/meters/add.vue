@@ -12,7 +12,7 @@
     </div>
     <div class="flex justify-center p-16">
       <div class="card p-16 w-9/12">
-        <form ref="form" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 border-b-2 pb-10">
+        <form id="app" ref="form" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 border-b-2 pb-10">
           <label class="block">
             <span class="block text-lg font-semibold text-slate-700">Batch Number</span>
             <input
@@ -103,7 +103,10 @@
           </label>
         </form>
         <div class="flex justify-end mt-6   pt-3 text-white font-bold">
-          <button class="transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 py-3 px-8 rounded-full" @click="save">
+          <button
+            class="transition ease-in-out delay-150 bg-plainblue hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 py-3 px-8 rounded-full"
+            @click="save"
+          >
             Save Meter
           </button>
         </div>

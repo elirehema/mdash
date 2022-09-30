@@ -17,44 +17,52 @@
           View Credit purchase informations
         </p>
       </div>
-      <div class="grid grid-cols-2 text-gray-500 text-xs bg-white rounded-lg shadow-md p-4">
-        <div>
+      <div class="grid grid-cols-3 text-gray-500 text-xs bg-white rounded-lg shadow-md p-4">
+        <div class="col-span-2">
           <span class="font-semibold text-primary text-xs"> Transaction Date: </span>
         </div>
         <div>
           <span>{{ purchase.transactionDate | dateformat }}</span>
         </div>
-        <div><span class="font-semibold text-primary text-sm"> Meter ID:</span></div>
+        <div class="col-span-2">
+          <span class="font-semibold text-primary text-sm"> Meter ID:</span>
+        </div>
         <div>
           <span> {{ purchase.MeterId }}</span>
         </div>
-        <div><span class="font-semibold text-primary text-sm"> Payment Ref: </span></div>
+        <div class="col-span-2">
+          <span class="font-semibold text-primary text-sm"> Payment Ref: </span>
+        </div>
         <div>
           <span>{{ purchase.paymentReference }}</span>
         </div>
-        <div>
+        <div class="col-span-2">
           <span class="font-semibold text-primary text-sm"> Purchased Units: </span>
         </div>
         <div>
           <span>{{ purchase.purchasedUnits }}</span>
         </div>
-        <div>
+        <div class="col-span-2">
           <span class="font-semibold text-primary text-sm"> Off-Set Units: </span>
         </div>
         <div>
           <span>{{ purchase.offsetUnits }}</span>
         </div>
-        <div>
+        <div class="col-span-2">
           <span class="font-semibold text-primary text-sm"> Effective Units: </span>
         </div>
         <div>
           <span> {{ purchase.effectiveUnits }}</span>
         </div>
-        <div><span class="font-semibold text-primary text-sm"> Tariff: </span></div>
+        <div class="col-span-2">
+          <span class="font-semibold text-primary text-sm"> Tariff: </span>
+        </div>
         <div>
           <span>{{ purchase.tarrifId }}</span>
         </div>
-        <div><span class="font-semibold text-primary text-sm"> Recorded At: </span></div>
+        <div class="col-span-2">
+          <span class="font-semibold text-primary text-sm"> Recorded At: </span>
+        </div>
         <div>
           <span> {{ purchase.createdAt | dateformat }}</span>
         </div>

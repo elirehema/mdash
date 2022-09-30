@@ -8,11 +8,12 @@
         List of all meter  readings
       </p>
     </div>
+
     <meter-readings :readings="readings" />
+    <pagination-component :page="page" :pages="pages" @update="updatepage($event)" />
   </div>
 </template>
 <script >
-import { mapGetters } from 'vuex'
 import MeterReadingsComponent from '~/components/meter-readings.vue'
 export default {
   components: {
@@ -20,20 +21,29 @@ export default {
   },
   data () {
     return {
-      menu: false
+      page: 1,
+      pages: 0,
+      readings: null
     }
   },
-  computed: {
-    ...mapGetters({
-      readings: 'readings'
-    })
-  },
   created () {
-    this.$store.dispatch('_fetchreadings')
+    this.fetchpagenatedusagereadings()
   },
   methods: {
-    openmenu () {
-      this.menu = !this.menu
+    updatepage (page) {
+      this.readings = null
+      this.page = page
+      this.fetchpagenatedusagereadings()
+    },
+    async fetchpagenatedusagereadings () {
+      await this.$api
+        .$get('/readings/paginate', { params: { page: this.page, size: Math.round(window.innerHeight / 64) } })
+        .then((response) => {
+          this.readings = response.results
+          this.pages = response.totalPages
+        })
+        .catch((_error) => {
+        })
     }
   }
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="pages>1">
     <div class=" min-w-full bg-emerald-50 py-5">
       <div class="flex justify-end  w-full">
         <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
@@ -17,7 +17,7 @@
             type="button"
             aria-current="page"
             class="relative z-10 inline-flex items-center border   px-4 py-2 text-sm font-medium  focus:z-20 cursor-pointer"
-            :class="(p==current) ? 'border-indigo-500 bg-indigo-50 text-indigo-600':'text-gray-500 bg-white border-gray-300'"
+            :class="(p==current) ? 'border-plainblue bg-plainblue text-white font-bold':'text-gray-500 bg-white border-gray-300'"
             @click="updatepage(p)"
           >{{ p }}</a>
 
