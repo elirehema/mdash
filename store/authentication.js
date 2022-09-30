@@ -44,7 +44,7 @@ const actions = {
       .$post('/signin', requestbody)
       .then((response) => {
         commit('AUTHENTICATE_SUCCESS', response)
-        this.$toast.success(`Welcome ${response.firstname}`)
+        this.$toast.success(`Welcome ${response.name}`)
       })
       .catch(() => {
         commit('AUTHENTICATE_ERROR')
