@@ -274,13 +274,20 @@ export default {
       tracks: 'recenttracks'
     })
   },
+  mounted () {
+    this.$nextTick(function () {
+      window.setInterval(() => {
+        this.fetchdashboardinfos()
+      }, 270000)
+    })
+  },
   created () {
-    this.$store.dispatch('_fetchrecentusagetracks')
-    this.$store.dispatch('_fetchstatistics')
+    this.fetchdashboardinfos()
   },
   methods: {
-    openmenu () {
-      this.menu = !this.menu
+    fetchdashboardinfos () {
+      this.$store.dispatch('_fetchrecentusagetracks')
+      this.$store.dispatch('_fetchstatistics')
     }
   }
 
