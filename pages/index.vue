@@ -232,7 +232,7 @@
           <div class="mt-8">
             <usage-track :tracks="tracks" />
           </div>
-          <div v-if="tracks.length > 24" class="flex justify-center mt-4">
+          <div v-if="tracks.length > 14" class="flex justify-center mt-4">
             <nuxt-link to="/tracks">
               <span
                 class="
