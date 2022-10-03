@@ -58,14 +58,14 @@
           <td class="py-4 px-6">
             {{ t.offSet }}
           </td>
-          <td class="py-4 px-6">
-            {{ t.valveStatus }}
+          <td class="py-4 px-6 text-green-500 font-semibold">
+            {{ t.valveStatusMessage +"{"+ t.valveStatus + "}" }}
           </td>
           <td class="py-4 px-6">
-            {{ t.createdAt | dateformat  }}
+            {{ t.createdAt | dateformat }}
           </td>
           <td class="py-4 px-6">
-            {{ t.updatedAt | dateformat  }}
+            {{ t.updatedAt | dateformat }}
           </td>
         </tr>
       </tbody>
@@ -99,7 +99,7 @@ export default {
   },
   data () {
     return {
-      fields: ['ID', 'MeterID', 'Previous Unit', 'Recorded Unit', 'Offset', 'Valve', 'Created', 'Updated'],
+      fields: ['ID', 'MeterID', 'Previous Unit', 'Recorded Unit', 'Offset', 'Valve Status Message', 'Created', 'Updated'],
       menu: false
     }
   }
