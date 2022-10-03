@@ -9,18 +9,23 @@
           List of all registered companies
         </p>
       </div>
-      <div v-if="isadmin" class="grid  grid-cols-3 gap-4 content-center ">
-        <input v-if="input" v-model="companyname" placehoder="Company Name" class="col-span-2 rounded-lg  border-2 border-indigo-400 min-w-64">
-        <div v-else class="col-span-2 " />
+      <div v-if="isadmin" class="flex justify-end ">
+        <form>
+          <div class="inline-flex justify-between gap-4 py-4">
+            <input v-if="save" v-model="company.name" placeholder="Company Name" class=" rounded-lg  border border-indigo-400 min-w-64 placeholder:text-gray-400 p-2" required>
 
-        <div>
-          <button v-if="save" type="button" class="bg-primary font-bold text-white p-2 px-3 rounded-lg border border-primary" @click="savecompany">
-            Save Company
-          </button>
-          <button v-else type="button" class="bg-primary font-bold text-white p-2 px-3 rounded-lg border border-primary" @click="input = !input">
-            + New Company
-          </button>
-        </div>
+            <input v-if="save" v-model="company.externalId" placeholder="External ID" class=" rounded-lg  border border-indigo-400 min-w-64 placeholder:text-gray-400 p-2" required>
+
+            <div>
+              <button v-if="save" type="submit" class="bg-primary font-bold text-white p-2 px-3 rounded-lg border border-primary" @click="savecompany">
+                Save Company
+              </button>
+              <button v-else type="button" class="bg-primary font-bold text-white p-2 px-3 rounded-lg border border-primary" @click="save = !save">
+                + New Company
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -98,14 +103,15 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      fields: ['ID', 'Name','ExternalID'],
+      fields: ['ID', 'Name', 'ExternalID'],
       menu: false,
       companyname: '',
       save: false,
       input: false,
       isadmin: false,
       company: {
-        name: null
+        name: null,
+        externalId: null
       }
     }
   },
@@ -126,8 +132,8 @@ export default {
   },
   methods: {
     savecompany () {
-      this.$store.dispatch('_registercompany', { name: this.companyname }).then(() => {
-        this.companyname = ''
+      this.$store.dispatch('_registercompany', this.company).then(() => {
+        this.company = null
         this.save = false
         this.input = false
       })
