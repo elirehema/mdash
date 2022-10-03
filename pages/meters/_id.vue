@@ -29,7 +29,7 @@
         List of all meter usage tracks
       </p>
     </div>
-    <usage-tracks :tracks="meter.usages" />
+    <usage-tracks :tracks="meter.UsageTracks" />
   </div>
 </template>
 <script >
