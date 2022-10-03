@@ -19,9 +19,9 @@
         <div><span class="font-semibold text-primary text-sm"> Serial No: {{ meter.serialNumber }}</span></div>
         <div><span class="font-semibold text-primary text-sm"> Controll No: {{ meter.controlNumber }}</span></div>
         <div><span class="font-semibold text-primary text-sm"> Device ID: {{ meter.deviceId }}</span></div>
-        <div><span class="font-semibold text-primary text-sm"> Current Units: {{ meter.unit }}</span></div>
+        <div><span class="font-semibold text-primary text-sm"> Current Units: {{ meter.Bill.credits }}</span></div>
         <div><span class="font-semibold text-primary text-sm"> Batch No: {{ meter.batchNumber }}</span></div>
-        <div><span class="font-semibold text-primary text-sm"> Offset: {{ meter.discrepancy }}</span></div>
+        <div><span class="font-semibold text-primary text-sm"> Offset: {{ meter.Bill.offSet }}</span></div>
       </div>
     </div>
     <div class="p-5 border-b">
