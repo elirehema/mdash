@@ -59,7 +59,7 @@
             {{ t.offSet }}
           </td>
           <td class="py-4 px-6 text-green-500 font-semibold">
-            {{ t.valveStatusMessage +"{"+ t.valveStatus + "}" }}
+            {{ "[ "+ t.valveStatus + " ] - " + t.valveStatusMessage }}
           </td>
           <td class="py-4 px-6">
             {{ t.createdAt | dateformat }}
