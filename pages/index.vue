@@ -231,22 +231,21 @@
         <div class="mt-8">
           <usage-track :tracks="tracks" />
         </div>
-        <div class="flex justify-center">
+        <div v-if="tracks.length > 24" class="flex justify-center mt-4">
           <nuxt-link to="/tracks">
-            <div
+            <span
               class="
-              mt-4 bg-transparent
-              hover:shadow-inner
+              mt-16 bg-transparent
               transform
               hover:scale-125
-              hover:text-lg
-              transition
-              ease-out text-blue-400
+              hover:text-lg italic
+              transition font-bold
+              ease-out text-blue-600
               duration-300
             "
             >
               Load more ...
-            </div>
+            </span>
           </nuxt-link>
         </div>
       </div>
