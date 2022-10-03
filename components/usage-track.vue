@@ -47,7 +47,17 @@
             {{ t.id }}
           </th>
           <td class="py-4 px-6">
-            {{ t.MeterId }}
+            <nuxt-link :to="`/meters/${t.MeterId}`">
+              <span
+                class="mt-16 bg-transparent
+              transform
+              hover:scale-125
+              hover:text-lg hover:italic
+              transition hover:font-bold
+              ease-out hover:text-blue-600
+              duration-600"
+              >{{ t.MeterId }}</span>
+            </nuxt-link>
           </td>
           <td class="py-4 px-6">
             {{ t.previousUnit }}

@@ -225,16 +225,17 @@
             </div>
           </div>
         </div>
-        <h4 class="font-bold mt-12 pb-2 border-b border-gray-200">
-          Recent usage tracks
-        </h4>
-        <div class="mt-8">
-          <usage-track :tracks="tracks" />
-        </div>
-        <div v-if="tracks.length > 24" class="flex justify-center mt-4">
-          <nuxt-link to="/tracks">
-            <span
-              class="
+        <div v-if="tracks">
+          <h4 class="font-bold mt-12 pb-2 border-b border-gray-200">
+            Recent usage tracks
+          </h4>
+          <div class="mt-8">
+            <usage-track :tracks="tracks" />
+          </div>
+          <div v-if="tracks.length > 24" class="flex justify-center mt-4">
+            <nuxt-link to="/tracks">
+              <span
+                class="
               mt-16 bg-transparent
               transform
               hover:scale-125
@@ -243,10 +244,11 @@
               ease-out text-blue-600
               duration-300
             "
-            >
-              Load more ...
-            </span>
-          </nuxt-link>
+              >
+                Load more ...
+              </span>
+            </nuxt-link>
+          </div>
         </div>
       </div>
     </div>
