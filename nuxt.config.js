@@ -10,7 +10,7 @@ export default {
     middleware: ['router']
   },
   env: {
-    baseUrl: 'http://localhost:8080/api/v1',
+    baseUrl: 'https://nexiot.nexiss.cloud/api/v1',
     localUrl: 'http://localhost:8080/api/v1'
   },
 
