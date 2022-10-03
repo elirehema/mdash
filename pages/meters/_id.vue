@@ -22,27 +22,43 @@
         <div><span class="font-semibold text-primary text-sm"> Current Units: {{ meter.Bill.credits }}</span></div>
         <div><span class="font-semibold text-primary text-sm"> Batch No: {{ meter.batchNumber }}</span></div>
         <div><span class="font-semibold text-primary text-sm"> Offset: {{ meter.Bill.offSet }}</span></div>
+        <div @click="downlinks = !downlinks">
+          <span class="font-bold text-blue-500 text-sm underline italic">{{ !downlinks? 'DownLinks':'UsageTrack' }}</span>
+        </div>
       </div>
     </div>
-    <div class="p-5 border-b">
-      <p class="text-sm font-bold">
-        List of all meter usage tracks
-      </p>
+    <div v-if="downlinks">
+      <div class="p-5 border-b">
+        <p class="text-sm font-bold">
+          List of all meter downlink commands
+        </p>
+      </div>
+      <downlink-commands :commands="meter.Downlinks" />
     </div>
-    <usage-tracks :tracks="meter.UsageTracks" />
+    <div v-else>
+      <div class="p-5 border-b">
+        <p class="text-sm font-bold">
+          List of all meter usage tracks
+        </p>
+      </div>
+      <usage-tracks :tracks="meter.UsageTracks" />
+    </div>
   </div>
 </template>
 <script >
 import MeterUsageTrackComponent from '~/components/usage-track.vue'
+import MeterDownlinksCommandsComponent from '~/components/downlinks.vue'
 export default {
   components: {
-    'usage-tracks': MeterUsageTrackComponent
+    'usage-tracks': MeterUsageTrackComponent,
+    'downlink-commands': MeterDownlinksCommandsComponent
   },
   data () {
     return {
       fields: ['ID', 'MeterID', 'Previous Unit', 'Recorded Unit', 'Offset', 'Date:Time', 'Active ?'],
       meter: null,
-      menu: false
+      menu: false,
+      downlinks: false
     }
   },
   computed: {},
