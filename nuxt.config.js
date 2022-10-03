@@ -1,4 +1,4 @@
-const routerBase = process.env.DEPLOY_ENV === 'production' ? '/toss/' : '/'
+const routerBase = process.env.DEPLOY_ENV === 'production' ? '/mdash/' : '/'
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
