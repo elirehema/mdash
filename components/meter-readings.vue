@@ -99,7 +99,7 @@ export default {
   },
   data () {
     return {
-      fields: ['DevEUI', 'Battery %', 'Type', 'Confirmed?', 'Unit', 'Reading', 'Created on', 'Updated on'],
+      fields: ['DevEUI', 'Battery %', 'Type', 'Confirmed?', 'Unit', 'Reading', 'Created at', 'Updated at'],
       menu: false
     }
   }

@@ -100,7 +100,7 @@ export default {
   },
   data () {
     return {
-      fields: ['ID', 'MeterID', 'Command Type', 'Code', 'Message', 'Status', 'Created on', 'Updated on'],
+      fields: ['ID', 'MeterID', 'Command Type', 'Code', 'Message', 'Status', 'Created at', 'Updated at'],
       menu: false
     }
   }

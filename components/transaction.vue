@@ -96,7 +96,7 @@ export default {
   },
   data () {
     return {
-      fields: ['TrxID', 'Amount', 'Units', 'Transaction Type', 'Transaction Date', 'Recorded on', 'Updated on'],
+      fields: ['TrxID', 'Amount', 'Units', 'Transaction Type', 'Transaction Date', 'Recorded at', 'Updated at'],
       menu: false
     }
   }
