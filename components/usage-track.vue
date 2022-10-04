@@ -107,7 +107,7 @@ export default {
   },
   data () {
     return {
-      fields: ['ID', 'MeterID', 'Recorded Unit', 'Offset', 'Valve Status Message', 'Created', 'Updated'],
+      fields: ['ID', 'MeterID', 'Recorded Unit', 'Offset', 'Valve Status Message', 'Created on', 'Updated on'],
       menu: false
     }
   }

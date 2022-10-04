@@ -111,7 +111,7 @@ export default {
   },
   data () {
     return {
-      fields: ['Control Number', 'MeterID', 'Amount', 'Purchased Units', 'Effective Units', 'Offsets', 'Payment Ref', 'Tariff', 'Transaction Date', 'Created', 'Updated'],
+      fields: ['Control Number', 'MeterID', 'Amount', 'Purchased Units', 'Effective Units', 'Offsets', 'Payment Ref', 'Tariff', 'Transaction Date', 'Created on', 'Updated on'],
       menu: false,
       page: 1,
       pages: 0,
