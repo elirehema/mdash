@@ -59,9 +59,7 @@
               >{{ t.MeterId }}</span>
             </nuxt-link>
           </td>
-          <td class="py-4 px-6">
-            {{ t.previousUnit }}
-          </td>
+        
           <td class="py-4 px-6">
             {{ t.recordedUnit }}
           </td>
@@ -109,7 +107,7 @@ export default {
   },
   data () {
     return {
-      fields: ['ID', 'MeterID', 'Previous Unit', 'Recorded Unit', 'Offset', 'Valve Status Message', 'Created', 'Updated'],
+      fields: ['ID', 'MeterID', 'Recorded Unit', 'Offset', 'Valve Status Message', 'Created', 'Updated'],
       menu: false
     }
   }
