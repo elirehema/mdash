@@ -47,10 +47,10 @@
             {{ r.devEUI }}
           </th>
           <td class="py-4 px-6">
-            {{ r.gwid }}
+            {{ r.BatteryPercentage }}
           </td>
           <td class="py-4 px-6">
-            {{ r.class }}
+            {{ r.type }}
           </td>
           <td class="py-4 px-6">
             {{ r.confirmed }}
@@ -99,7 +99,7 @@ export default {
   },
   data () {
     return {
-      fields: ['DevEUI', 'Gateway ID', 'Class', 'Confirmed?', 'Unit', 'Reading', 'Created', 'Updated'],
+      fields: ['DevEUI', 'Battery %', 'Type', 'Confirmed?', 'Unit', 'Reading', 'Created', 'Updated'],
       menu: false
     }
   }
