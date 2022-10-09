@@ -61,11 +61,14 @@
           <td class="py-4 px-6">
             {{ r.Reading }}
           </td>
-          <td class="py-4 px-6">
-            {{ r.createdAt | dateformat  }}
+          <td class="py-4 px-6 text-green-500 font-semibold">
+            {{ "[ "+ r.ValveStatus + " ] - " + getValveMessage(r.ValveStatus) }}
           </td>
           <td class="py-4 px-6">
-            {{ r.updatedAt | dateformat  }}
+            {{ r.createdAt | dateformat }}
+          </td>
+          <td class="py-4 px-6">
+            {{ r.updatedAt | dateformat }}
           </td>
         </tr>
       </tbody>
@@ -99,8 +102,29 @@ export default {
   },
   data () {
     return {
-      fields: ['DevEUI', 'Battery %', 'Type', 'Confirmed?', 'Unit', 'Reading', 'Created at', 'Updated at'],
+      fields: ['DevEUI', 'Battery %', 'Type', 'Confirmed?', 'Unit', 'Reading', 'Valve Status', 'Created at', 'Updated at'],
       menu: false
+    }
+  },
+  methods: {
+    getValveMessage (m) {
+      let message = 'INVALID'
+      switch (m) {
+        case '00':
+          message = 'VALVE OPEN'
+          break
+        case '01':
+          message = 'VALVE CLOSE'
+          break
+        case '11':
+          message = 'VALVE ERROR'
+          break
+        case null:
+          message = 'VALVE NOT SUPPORTING'
+          break
+      }
+
+      return message
     }
   }
 

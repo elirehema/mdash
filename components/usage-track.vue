@@ -59,7 +59,6 @@
               >{{ t.MeterId }}</span>
             </nuxt-link>
           </td>
-        
           <td class="py-4 px-6">
             {{ t.recordedUnit }}
           </td>
