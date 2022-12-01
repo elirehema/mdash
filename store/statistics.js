@@ -11,7 +11,8 @@ const state = () => ({
     transactions: 0,
     usageTracks: 0,
     users: 0,
-    purchases: 0
+    purchases: 0,
+    units: {}
   }
 })
 
@@ -28,6 +29,20 @@ const mutations = {
   'GET_STATISTICS_SUCCESS' (state, payload) {
     state.showLoader = false
     state.totals = payload
+  },
+
+  'GET_UNITS' (state) {
+    state.showLoader = true
+  },
+  'GET_UNITS_FAILED' (state) {
+    state.showLoader = false
+  },
+  'GET_UNITS_ERROR' (state) {
+    state.showLoader = false
+  },
+  'GET_UNITS_SUCCESS' (state, payload) {
+    state.showLoader = false
+    state.units = payload
   }
 }
 
@@ -44,12 +59,28 @@ const actions = {
         console.log(error)
         commit('GET_STATISTICS_ERROR')
       })
+  },
+  async _fetchstatisticalunits ({ commit }) {
+    commit('GET_UNITS')
+    await this.$api
+      .$get('/units')
+      .then((response) => {
+        commit('GET_UNITS_SUCCESS', response)
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error)
+        commit('GET_UNITS_ERROR')
+      })
   }
 }
 
 const getters = {
   totals: (state) => {
     return state.totals
+  },
+  units: (state) => {
+    return state.units
   }
 }
 

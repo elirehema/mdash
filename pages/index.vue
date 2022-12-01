@@ -122,6 +122,26 @@
               </div>
             </div>
           </nuxt-link>
+          <div v-if="units" class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg  relative">
+            <div class="grid grid-cols-12">
+              <div class="col-span-4 grid justify-center content-center">
+                <svg
+                  class="fill-green-500 "
+                  width="40"
+                  height="40"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M13.22 17.219a.75.75 0 0 0-.073.976l.073.084 2.367 2.37a.77.77 0 0 0 .664.351.786.786 0 0 0 .611-.276l.053-.075 2.367-2.37.073-.084a.75.75 0 0 0 .007-.882l-.08-.094-.084-.073a.75.75 0 0 0-.883-.007l-.094.08L17 18.44V3.656l-.007-.089c-.05-.32-.363-.567-.743-.567s-.694.247-.743.567l-.007.09V18.44l-1.22-1.221-.084-.073a.75.75 0 0 0-.976.073Zm-6.97 2.789A2.25 2.25 0 0 1 4 17.758v-11.5a2.25 2.25 0 0 1 2.25-2.25h6a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 0-.75.75v11.5c0 .414.336.75.75.75h4a.75.75 0 0 1 0 1.5h-4Z" />
+                </svg>
+              </div>
+              <div class="col-span-8 p-4 2xl:p-8  bg-primary flex flex-col">
+                <span class="font-bold text-sm 2xl:text-xl text-white">Available Units</span>
+                <span class="font-bold text-lg 2xl:text-2xl text-white">{{ units.credits }}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div>
@@ -271,7 +291,8 @@ export default {
   computed: {
     ...mapGetters({
       totals: 'totals',
-      tracks: 'recenttracks'
+      tracks: 'recenttracks',
+      units: 'units'
     })
   },
   mounted () {
@@ -288,6 +309,7 @@ export default {
     fetchdashboardinfos () {
       this.$store.dispatch('_fetchrecentusagetracks')
       this.$store.dispatch('_fetchstatistics')
+      this.$store.dispatch('_fetchstatisticalunits')
     }
   }
 
