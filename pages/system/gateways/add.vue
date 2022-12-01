@@ -18,7 +18,7 @@
             <input
               v-model="gateway.gwid"
               type="text"
-              placeholder="E.g GT-10"
+              placeholder="E.g 3a420623-2caa-41cb-8bba-d1b84c80bfdf"
               class="mt-1 block w-full px-3 py-4 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                                   focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 invalid:border-pink-500 invalid:text-pink-600
                                   focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
@@ -26,11 +26,11 @@
           </label>
 
           <label class="block">
-            <span class="block text-lg font-semibold text-slate-700">Signal to noise ratio</span>
+            <span class="block text-lg font-semibold text-slate-700">Gateway Name</span>
             <input
-              v-model="gateway.snr"
-              type="number"
-              placeholder="E.g 20"
+              v-model="gateway.gatewayName"
+              type="text"
+              placeholder="E.g Nexis GW0001"
               class="mt-1 block w-full px-3 py-4 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                                   focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 invalid:border-pink-500 invalid:text-pink-600
                                   focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
@@ -38,11 +38,11 @@
           </label>
 
           <label class="block">
-            <span class="block text-lg font-semibold text-slate-700">Signal Strength</span>
+            <span class="block text-lg font-semibold text-slate-700">Gateway Type</span>
             <input
-              v-model="gateway.rssi"
-              type="number"
-              placeholder="E.g 20"
+              v-model="gateway.gatewayType"
+              type="text"
+              placeholder="E.g RHF-2S-208"
               class="mt-1 block w-full px-3 py-4 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                                   focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 invalid:border-pink-500 invalid:text-pink-600
                                   focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
@@ -50,7 +50,42 @@
           </label>
 
           <label class="block">
-            <span class="block text-lg font-semibold text-slate-700 ">Company</span>
+            <span class="block text-lg font-semibold text-slate-700">Communication ID</span>
+            <input
+              v-model="gateway.communicationId"
+              type="text"
+              placeholder="E.g 6b47e5c7-470b-447e-aef2-1d1dde6b4a13"
+              class="mt-1 block w-full px-3 py-4 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+                                  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 invalid:border-pink-500 invalid:text-pink-600
+                                  focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+            >
+          </label>
+          <label class="block">
+            <span class="block text-lg font-semibold text-slate-700">Longitude</span>
+            <input
+              v-model="gateway.longitude"
+              type="text"
+              placeholder="E.g 6b47e5c7-470b-447e-aef2-1d1dde6b4a13"
+              class="mt-1 block w-full px-3 py-4 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+                                  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 invalid:border-pink-500 invalid:text-pink-600
+                                  focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+            >
+          </label>
+
+          <label class="block">
+            <span class="block text-lg font-semibold text-slate-700">Latitude</span>
+            <input
+              v-model="gateway.latitude"
+              type="text"
+              placeholder="E.g 6b47e5c7-470b-447e-aef2-1d1dde6b4a13"
+              class="mt-1 block w-full px-3 py-4 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+                                  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 invalid:border-pink-500 invalid:text-pink-600
+                                  focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+            >
+          </label>
+
+          <label class="block">
+            <span class="block text-lg font-semibold text-slate-700 ">Company ID</span>
 
             <div class="flex justify-center mt-2">
               <div class=" w-full">
@@ -98,9 +133,14 @@ export default {
       form: true,
       delayInMilliseconds: 5000,
       gateway: {
+        gatewayName: '',
+        gatewayType: '',
+        longitude: 0.0,
+        latitude: 0.0,
         gwid: '',
-        rssi: 0,
-        snr: 0
+        companyId: 0,
+        communicationId: 0,
+        active: true
       }
     }
   },
@@ -120,11 +160,7 @@ export default {
   },
   methods: {
     async save () {
-      await this.$api.$post('/gateways', {
-        gwid: this.gateway.gwid,
-        rssi: parseInt(this.gateway.rssi),
-        snr: parseInt(this.gateway.snr)
-      })
+      await this.$api.$post('/gateways', this.gateway)
         .then((_response) => {
           this.$router.push('/system/gateways')
         })
