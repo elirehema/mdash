@@ -60,13 +60,16 @@
                   dark:text-white
                 "
           >
-            {{ c.gwid }}
+            {{ c.gatewayName }}
           </th>
           <td class="py-4 px-6">
-            {{ c.rssi }}
+            {{ c.gatewayType }}
           </td>
           <td class="py-4 px-6">
-            {{ c.snr }}
+            {{ c.gwid }}
+          </td>
+          <td class="py-4 px-6">
+            {{ c.active }}
           </td>
           <td class="py-4 px-6">
             {{ c.createdAt | dateformat }}
@@ -84,7 +87,7 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      fields: ['Gateway Unique Identifier', 'Signal Strength', 'Signal to noise ratio', 'Created On', 'Updated On'],
+      fields: ['Gateway Name', 'Gateway Type', 'Gateway ID', 'Active', 'Created On', 'Updated On'],
       menu: false
     }
   },
