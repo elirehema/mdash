@@ -64,9 +64,9 @@ const actions = {
   },
 
   async _logoutsession ({ }) {
-    window.localStorage.clear()
-    sessionStorage.clear()
-    this.$router.push('/signin')
+    //window.localStorage.clear()
+    //sessionStorage.clear()
+    //this.$router.push('/signin')
   }
 }
 const getters = {

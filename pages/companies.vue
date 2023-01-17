@@ -20,9 +20,11 @@
               <button v-if="save" type="submit" class="bg-primary font-bold text-white p-2 px-3 rounded-lg border border-primary" @click="savecompany">
                 Save Company
               </button>
-              <button v-else type="button" class="bg-primary font-bold text-white p-2 px-3 rounded-lg border border-primary" @click="save = !save">
+              
+              <button v-else type="button" class="button" @click="save = !save">
                 + New Company
               </button>
+              <export-button report="companies" />
             </div>
           </div>
         </form>

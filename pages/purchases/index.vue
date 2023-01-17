@@ -9,9 +9,12 @@
           List of all credit purchases
         </p>
       </div>
-      <nuxt-link to="/payments">
-        <a class="underline italic text-blue-500">View all payments</a>
-      </nuxt-link>
+      <div>
+        <nuxt-link to="/payments">
+          <a class="underline italic text-blue-500">View all payments</a>
+        </nuxt-link>
+        <export-button report="crpurchases" />
+      </div>
     </div>
     <credit-purchase :purchases="purchases" />
   </div>

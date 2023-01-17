@@ -9,12 +9,14 @@
           List of all registered meters
         </p>
       </div>
-      <div>
+      <div class="flex">
         <nuxt-link to="/meters/add">
           <button type="button" class="button">
             + New Meter
           </button>
         </nuxt-link>
+
+        <export-button report="meters" />
       </div>
     </div>
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -90,6 +92,7 @@
 <script >
 import { mapGetters } from 'vuex'
 export default {
+  
   data () {
     return {
       fields: ['Device ID', 'Serial No. ', 'Batch No.', 'Control No.', 'Units', 'Offset', 'Valve Status'],
