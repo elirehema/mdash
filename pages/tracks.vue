@@ -9,9 +9,12 @@
           List of all meter usage tracks
         </p>
       </div>
+      <div>
       <nuxt-link to="/readings">
         <a class="underline italic text-blue-500">Meter readings</a>
       </nuxt-link>
+      <export-button report="tracks" />
+      </div>
     </div>
     <usage-track :tracks="tracks" />
     <pagination-component :page="page" :pages="pages" @update="updatepage($event)" />

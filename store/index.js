@@ -1,18 +1,17 @@
 const state = () => ({
-    count:0
-  });
+  count: 0
+})
 
-  const mutations = {};
+const mutations = {}
 
-  const actions = {};
+const actions = {}
 
-  const getters = {};
+const getters = {}
 
-  export default {
-    namespaced: false,
-    state,
-    mutations,
-    actions,
-    getters,
-  };
-  
+export default {
+  namespaced: false,
+  state,
+  mutations,
+  actions,
+  getters
+}

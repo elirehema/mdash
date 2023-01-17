@@ -11,10 +11,11 @@
       </div>
       <div>
         <nuxt-link to="/users/add">
-          <button type="button" class="bg-primary font-bold text-white p-2 px-3 rounded-lg border border-primary">
+          <button type="button" class="button">
             + New User
           </button>
         </nuxt-link>
+        <export-button report="users" />
       </div>
     </div>
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
