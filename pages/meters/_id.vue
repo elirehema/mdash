@@ -52,9 +52,9 @@
         <div><span class="font-semibold text-primary text-sm"> Serial No: {{ meter.serialNumber }}</span></div>
         <div><span class="font-semibold text-primary text-sm"> Controll No: {{ meter.controlNumber }}</span></div>
         <div><span class="font-semibold text-primary text-sm"> Device ID: {{ meter.deviceId }}</span></div>
-        <div><span class="font-semibold text-primary text-sm"> Current Units: {{ meter.Bill.credits }}</span></div>
+        <div><span class="font-semibold text-primary text-sm"> Current Units: {{ meter.bill.credits }}</span></div>
         <div><span class="font-semibold text-primary text-sm"> Batch No: {{ meter.batchNumber }}</span></div>
-        <div><span class="font-semibold text-primary text-sm"> Offset: {{ meter.Bill.offSet }}</span></div>
+        <div><span class="font-semibold text-primary text-sm"> Offset: {{ meter.bill.offSet }}</span></div>
         <div @click="downlinks = !downlinks">
           <span class="font-bold text-blue-500 text-sm underline italic">{{ !downlinks? 'DownLinks':'UsageTrack' }}</span>
         </div>
