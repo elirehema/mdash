@@ -71,10 +71,10 @@
             {{ c.controlNumber }}
           </td>
           <td class="py-4 ">
-            {{ c.Bill.credits }}
+            {{ c.bill.credits }}
           </td>
           <td class="py-4 ">
-            {{ c.Bill.offSet }}
+            {{ c.bill.offSet }}
           </td>
           <td class="py-4">
             <svg v-if="c.isValveClosed" class="fill-red-500 ml-5" style="width:24px; height:24px" viewBox="0 0 24 24">
