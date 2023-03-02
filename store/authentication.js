@@ -63,10 +63,10 @@ const actions = {
       })
   },
 
-  async _logoutsession ({ }) {
-    //window.localStorage.clear()
-    //sessionStorage.clear()
-    //this.$router.push('/signin')
+  _logoutsession () {
+    window.localStorage.clear()
+    sessionStorage.clear()
+    this.$router.push('/signin')
   }
 }
 const getters = {
