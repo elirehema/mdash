@@ -74,7 +74,7 @@
           List of all meter usage tracks
         </p>
       </div>
-      <usage-tracks :tracks="meter.UsageTracks" />
+      <usage-tracks :tracks="meter.usageTracks" />
     </div>
   </div>
 </template>

@@ -47,7 +47,7 @@
             {{ t.id }}
           </th>
           <td class="py-4 px-6">
-            <nuxt-link :to="`/meters/${t.MeterId}`">
+            <nuxt-link :to="`/meters/${t.meterId}`">
               <span
                 class="mt-16 bg-transparent
               transform
@@ -56,7 +56,7 @@
               transition hover:font-bold
               ease-out hover:text-blue-600
               duration-600"
-              >{{ t.MeterId }}</span>
+              >{{ t.meter.serialNumber }}</span>
             </nuxt-link>
           </td>
           <td class="py-4 px-6">
@@ -106,7 +106,7 @@ export default {
   },
   data () {
     return {
-      fields: ['ID', 'MeterID', 'Recorded Unit', 'Offset', 'Valve Status Message', 'Created at', 'Updated at'],
+      fields: ['ID', 'Serial #', 'Recorded Unit', 'Offset', 'Valve Status Message', 'Created at', 'Updated at'],
       menu: false
     }
   }
