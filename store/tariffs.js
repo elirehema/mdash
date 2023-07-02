@@ -34,7 +34,34 @@ const actions = {
     await this.$api
       .$put(`/tariffs/${tariffId}/activate`)
       .then(() => {
-        dispatch('_fetchtariffs')
+        setTimeout(dispatch('_fetchtariffs'), 5000)
+      })
+      .catch(() => {
+      })
+  },
+  async _deactivatetariff ({ dispatch }, tariffId) {
+    await this.$api
+      .$put(`/tariffs/${tariffId}/deactivate`)
+      .then(() => {
+        setTimeout(dispatch('_fetchtariffs'), 5000)
+      })
+      .catch(() => {
+      })
+  },
+  async _updatetariff ({ dispatch }, data) {
+    await this.$api
+      .$put(`/tariffs/${data.id}`, data.payload)
+      .then(() => {
+        setTimeout(dispatch('_fetchtariffs'), 5000)
+      })
+      .catch(() => {
+      })
+  },
+  async _addnewtariff ({ dispatch }, payload) {
+    await this.$api
+      .$post('/tariffs', payload)
+      .then(() => {
+        setTimeout(dispatch('_fetchtariffs'), 5000)
       })
       .catch(() => {
       })
