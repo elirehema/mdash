@@ -1,23 +1,8 @@
 <template>
-  <div class="container min-w-full">
-    <div class="p-5 border-b flex justify-between ">
-      <div>
-        <p class="font-bold text-primary text-3xl">
-          Meter Usage Tracks
-        </p>
-        <p class="text-sm font-light">
-          List of all meter usage tracks
-        </p>
-      </div>
-      <div>
-      <nuxt-link to="/readings">
-        <a class="underline italic text-blue-500">Meter readings</a>
-      </nuxt-link>
-      <export-button report="tracks" />
-      </div>
+  <div>
+    <div v-if="tracks">
+      <usage-track :tracks="tracks" :titled="true" :pages="pages" @paginate="paginate" />
     </div>
-    <usage-track :tracks="tracks" />
-    <pagination-component :page="page" :pages="pages" @update="updatepage($event)" />
   </div>
 </template>
 <script >
@@ -35,7 +20,7 @@ export default {
     }
   },
   created () {
-    this.fetchpagenatedusagetracks()
+    this.paginate({ page: 0, itemsPerPage: Math.round(window.innerHeight / 64) })
   },
   methods: {
     updatepage (page) {
@@ -52,6 +37,16 @@ export default {
         })
         .catch((_error) => {
         })
+    },
+    async paginate (it) {
+      await this.$api
+        .$get('/tracks/paginate', { params: { page: it.page, size: it.itemsPerPage } })
+        .then((response) => {
+          this.pages = response.totalRows
+          this.page = response.currentPage
+          this.tracks = response.results
+        })
+        .catch((err) => {})
     }
   }
 

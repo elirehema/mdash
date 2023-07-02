@@ -1,87 +1,68 @@
 <template>
-  <div v-if="gateways" class="container min-w-full">
-    <div class="p-5 border-b flex flex-row justify-between">
-      <div>
-        <p class="font-bold text-primary text-3xl">
-          Gateways
-        </p>
-        <p class="text-sm font-light">
-          List of all company gateways
-        </p>
-      </div>
-      <div>
-        <nuxt-link to="/system/gateways/add">
-          <button type="button" class="bg-primary font-bold text-white p-2 px-3 rounded-lg border border-primary">
-            + New gateway
-          </button>
-        </nuxt-link>
-        <export-button report="gateways" />
-      </div>
-    </div>
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead
-        class="
-              text-xs text-gray-700
-              uppercase
-              bg-gray-50
-              dark:bg-gray-700 dark:text-gray-900
-            "
+  <v-data-table
+    v-if="gateways"
+    :headers="headers"
+    :items="gateways"
+    :items-per-page="15"
+    class="elevation-1"
+    :server-items-length="pages"
+    @click:row="handleRowClick"
+    @update:items-per-page="$emit('paginate',$event)"
+    @update:options="$emit('paginate',$event)"
+  >
+    <template #top>
+      <v-toolbar
+        flat
       >
-        <tr>
-          <th
-            v-for="(field, i) in fields"
-            :key="i"
-            scope="col"
-            class="py-3 px-6"
-          >
-            {{ field }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(c, i) in gateways"
-          :key="i"
-          class="
-                odd:bg-gray-50
-                bg-white
-                border-b
-                hover:bg-gray-100
-                dark:bg-gray-800 dark:border-gray-700
-              "
+        <v-toolbar-title class="font-weight-bold">
+          Gateways
+        </v-toolbar-title>
+        <v-spacer />
+        <export-button report="gateways" />
+        <v-btn
+          color="primary"
+          dark
+          class="mb-2 ml-2"
         >
-          <th
-            scop="row"
-            class="
-                  py-4
-                  px-6
-                  font-medium
-                  text-gray-900
-                  whitespace-nowrap
-                  dark:text-white
-                "
-          >
-            {{ c.gatewayName }}
-          </th>
-          <td class="py-4 px-6">
-            {{ c.gatewayType }}
-          </td>
-          <td class="py-4 px-6">
-            {{ c.gwid }}
-          </td>
-          <td class="py-4 px-6">
-            {{ c.active }}
-          </td>
-          <td class="py-4 px-6">
-            {{ c.createdAt | dateformat }}
-          </td>
-          <td class="py-4 px-6">
-            {{ c.updatedAt | dateformat }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          <v-icon left>
+            mdi-download
+          </v-icon>
+          Export CVS
+        </v-btn>
+      </v-toolbar>
+    </template>
+    <template #item.status="{ item }">
+      <v-icon
+        v-if="item.active"
+        small
+        color="green"
+      >
+        mdi-check
+      </v-icon>
+      <v-icon
+        v-else
+        small
+        color="blue"
+      >
+        mdi-close
+      </v-icon>
+    </template>
+    <template #item.actions="{ item }">
+      <v-container class="ma-0 pa-0" @click.stop>
+        <v-icon
+          small
+          class="mr-2"
+          @click="editItem(item)"
+        >
+          mdi-pencil
+        </v-icon>
+      </v-container>
+    </template>
+    <template #item.updatedAt="{ item }">
+      <span>{{ item.updatedAt | dateformat }}</span>
+    </template>
+  </v-data-table>
+  <skeleton-table-loader v-else />
 </template>
 <script >
 import { mapGetters } from 'vuex'
@@ -89,7 +70,17 @@ export default {
   data () {
     return {
       fields: ['Gateway Name', 'Gateway Type', 'Gateway ID', 'Active', 'Created On', 'Updated On'],
-      menu: false
+      headers: [
+        { text: 'GWID', value: 'gwid' },
+        {
+          text: 'Gateway Name',
+          sortable: false,
+          value: 'gatewayName'
+        },
+        { text: 'Type', value: 'gatewayType' },
+        { text: 'Acive', value: 'status' },
+        { text: 'Last Update', value: 'updatedAt' }
+      ]
     }
   },
   computed: {

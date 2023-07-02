@@ -1,144 +1,65 @@
 <template>
-  <div v-if="purchases" class="container  min-w-full">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead
-        v-if="purchases"
-        class="
-                text-xs text-gray-700
-                uppercase
-                bg-gray-50
-                dark:bg-gray-700 dark:text-gray-900
-              "
+  <v-data-table
+    v-if="purchases"
+    :headers="headers"
+    :items="purchases"
+    :items-per-page="15"
+    class="elevation-1"
+    :server-items-length="pages"
+    @update:items-per-page="$emit('paginate',$event)"
+    @update:options="$emit('paginate',$event)"
+  >
+    <template #top>
+      <v-toolbar
+        flat
       >
-        <tr>
-          <th
-            v-for="(field, i) in fields"
-            :key="i"
-            scope="col"
-            class="py-3 px-6"
-          >
-            {{ field }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(p, i) in purchases"
-          :key="i"
-          class="
-                  odd:bg-gray-50
-                  bg-white
-                  border-b text-gray-500
-                  hover:bg-gray-100
-                  dark:bg-gray-800 dark:border-gray-700
-                "
-          @click="viewCredit(p.id)"
-        >
-          <th
-            scop="row"
-            class="
-                    py-4
-                    px-6
-                    font-medium
-                    text-gray-900
-                    whitespace-nowrap
-                    dark:text-white
-                  "
-          >
-            {{ p.controlNumber }}
-          </th>
-          <td class="py-4 px-6">
-            {{ p.MeterId }}
-          </td>
-          <td class="py-4 px-6">
-            {{ p.amount }}
-          </td>
-          <td class="py-4 px-6">
-            {{ p.purchasedUnits }}
-          </td>
-          <td class="py-4 px-6">
-            {{ p.effectiveUnits }}
-          </td>
-          <td class="py-4 px-6">
-            {{ p.offsetUnits }}
-          </td>
-          <td class="py-4 px-6">
-            {{ p.paymentReference }}
-          </td>
-          <td class="py-4 px-6">
-            {{ p.tarrifId }}
-          </td>
-          <td class="py-4 px-6">
-            {{ p.transactionDate | dateformat }}
-          </td>
-          <td class="py-4 px-6">
-            {{ p.createdAt | dateformat }}
-          </td>
-          <td class="py-4 px-6">
-            {{ p.updatedAt | dateformat }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <pagination-component :page="page" :pages="pages" @update="updatepage($event)" />
-  </div>
-  <div v-else class="grid grid-cols-2 py-10 justify-center content-center">
-    <div class="justify-self-end">
-      <svg
-        class="animate-spin fill-blue-600"
-        width="24"
-        height="24"
-        fill="none"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M10.129 3.195a9.033 9.033 0 0 1 3.742 0 .75.75 0 1 1-.31 1.467 7.534 7.534 0 0 0-3.122 0 .75.75 0 0 1-.31-1.467Zm5.736 1.476a.75.75 0 0 1 1.038-.22 9.03 9.03 0 0 1 1.097.84V4.25a.75.75 0 0 1 1.5 0v3a.75.75 0 0 1-.75.75h-3a.75.75 0 0 1 0-1.5h1.35a7.537 7.537 0 0 0-1.015-.791.75.75 0 0 1-.22-1.038ZM19.5 12v-.75a.75.75 0 0 1 1.5 0V12c0 .64-.067 1.267-.195 1.871a.75.75 0 0 1-1.467-.31A7.538 7.538 0 0 0 19.5 12ZM8.135 4.671a.75.75 0 0 1-.22 1.038A7.545 7.545 0 0 0 5.71 7.915a.75.75 0 1 1-1.257-.818 9.044 9.044 0 0 1 2.645-2.646.75.75 0 0 1 1.038.22ZM4.662 10.44a.75.75 0 0 0-1.467-.31 9.033 9.033 0 0 0 0 3.742.75.75 0 1 0 1.467-.31 7.534 7.534 0 0 1 0-3.122Zm14.667 5.426a.75.75 0 0 1 .22 1.038 9.043 9.043 0 0 1-2.646 2.646.75.75 0 0 1-.818-1.258 7.548 7.548 0 0 0 2.206-2.206.75.75 0 0 1 1.038-.22Zm-13.62.22a.75.75 0 1 0-1.257.818 9.043 9.043 0 0 0 2.645 2.646.75.75 0 0 0 .818-1.258 7.546 7.546 0 0 1-2.206-2.206Zm3.841 3.831a.75.75 0 0 1 .89-.578 7.538 7.538 0 0 0 3.12 0 .75.75 0 1 1 .311 1.467 9.035 9.035 0 0 1-3.742 0 .75.75 0 0 1-.579-.889Z" />
-      </svg>
-    </div>
-    <div class="mt-1 ml-4 text-blue-600 justify-self-start">
-      <span> Please Wait...</span>
-    </div>
-  </div>
+        <v-toolbar-title class="font-weight-bold">
+          Credit Purchases 
+        </v-toolbar-title>
+        <v-spacer />
+
+        <export-button report="purchases" />
+      </v-toolbar>
+    </template>
+    <template #item.transactionDate="{ item }">
+      <span>{{ item.transactionDate | dateformat }}</span>
+    </template>
+    <template #item.createdAt="{ item }">
+      <span>{{ item.createdAt | dateformat }}</span>
+    </template>
+  </v-data-table>
+  <skeleton-table-loader v-else />
 </template>
 <script >
-import PaginationComponent from './pagination-component.vue'
 export default {
-  components: {
-    'pagination-component': PaginationComponent
-  },
   props: {
-
+    purchases: {
+      type: Array,
+      default: null
+    },
+    pages: {
+      type: Number,
+      default: -1
+    }
   },
   data () {
     return {
-      fields: ['Control Number', 'MeterID', 'Amount', 'Purchased Units', 'Effective Units', 'Offsets', 'Payment Ref', 'Tariff', 'Transaction Date', 'Created at', 'Updated at'],
-      menu: false,
-      page: 1,
-      pages: 0,
-      purchases: null
-    }
-  },
-  created () {
-    this.fetchcreditpurchases()
-  },
-  methods: {
-    viewCredit (it) {
-      this.$router.push({ path: `purchases/${it}` })
-    },
-    updatepage (it) {
-      this.purchases = null
-      this.page = it
-      this.fetchcreditpurchases(it)
-    },
-    async fetchcreditpurchases () {
-      await this.$api
-        .$get('/purchases/paginate', { params: { page: this.page, size: Math.round(window.innerHeight / 64) } })
-        .then((response) => {
-          this.purchases = response.results
-          this.pages = response.totalPages
-        })
-        .catch((_error) => {
-        })
+      headers: [
+        {
+          text: 'Control Number',
+          sortable: false,
+          value: 'controlNumber'
+        },
+        { text: 'MeterID', value: 'meterId' },
+        { text: 'Amount', value: 'amount' },
+        { text: 'Purchased Units', value: 'purchasedUnits' },
+        { text: 'Effective Units', value: 'effectiveUnits' },
+        { text: 'Offset', value: 'offsetUnits' },
+        { text: 'Payment Ref', value: 'paymentReference' },
+        { text: 'Tarrif', value: 'tarrifId' },
+        { text: 'Transaction Date', value: 'transactionDate' },
+        { text: 'Created At', value: 'createdAt' }
+      ]
     }
   }
 

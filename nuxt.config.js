@@ -30,14 +30,16 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/css/main.css'
+    '@/assets/css/styles.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/vuetify.js',
     '~/plugins/axios',
     '~/plugins/filters',
-    '~/mixins/mixins.js'
+    '~/mixins/mixins.js',
+    '~/plugins/vuepersistence.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -45,10 +47,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/typescript
-    '@nuxt/typescript-build',
-    // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss',
+    '@nuxtjs/vuetify',
     '@nuxt/postcss8'
   ],
 
@@ -59,7 +58,6 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/toast',
-
     'cookie-universal-nuxt'
   ],
   toast: {
@@ -98,8 +96,18 @@ export default {
     publicPath: process.env.NODE_ENV === 'production' ? '/assets/' : '',
     postcss: {
       plugins: {
-        tailwindcss: {},
-        autoprefixer: {}
+      },
+      preset: {
+      }
+    },
+    terser: {
+      extractComments: false, // default was LICENSES
+      // https://github.com/terser/terser#compress-options
+      // Disable console log in production
+      terserOptions: {
+        compress: {
+          drop_console: true
+        }
       }
     }
   },

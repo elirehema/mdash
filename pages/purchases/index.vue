@@ -1,26 +1,7 @@
 <template>
-  <div class="container min-w-full">
-    <div class="p-5 border-b flex justify-between ">
-      <div>
-        <p class="font-bold text-primary text-3xl">
-          Credit Purchases
-        </p>
-        <p class="text-sm font-light">
-          List of all credit purchases
-        </p>
-      </div>
-      <div>
-        <nuxt-link to="/payments">
-          <a class="underline italic text-blue-500">View all payments</a>
-        </nuxt-link>
-        <export-button report="crpurchases" />
-      </div>
-    </div>
-    <credit-purchase :purchases="purchases" />
-  </div>
+  <credit-purchase :purchases="purchases" :pages="pages" @paginate="paginate" />
 </template>
 <script >
-import { mapGetters } from 'vuex'
 import CreditPurchaseComponent from '~/components/credit-purchase.vue'
 export default {
   components: {
@@ -28,20 +9,28 @@ export default {
   },
   data () {
     return {
-      menu: false
+      menu: false,
+      purchases: null,
+      pages: -1
     }
   },
-  computed: {
-    ...mapGetters({
-      purchases: 'purchases'
-    })
-  },
   created () {
-    this.$store.dispatch('_fetchcreditpurchases')
+    this.paginate({ page: 0, itemsPerPage: Math.round( window.innerHeight / 64) })
   },
   methods: {
-    openmenu () {
-      this.menu = !this.menu
+    viewCredit (it) {
+      this.$router.push({ path: `purchases/${it}` })
+    },
+    async paginate (it) {
+      await this.$api
+        .$get('/purchases/paginate', { params: { page: it.page, size: it.itemsPerPage } })
+        .then((response) => {
+          this.page = response.currentPage
+          this.purchases = response.results
+          this.pages = response.totalPages
+        })
+        .catch((_error) => {
+        })
     }
   }
 

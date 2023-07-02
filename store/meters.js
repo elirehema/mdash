@@ -31,6 +31,20 @@ const actions = {
         console.log(error)
         commit('GET_METERS_ERROR')
       })
+  },
+  async _addnewmeter ({ dispatch }, payload) {
+    await this.$api
+      .$post('/meters', payload)
+      .then((response) => {
+        dispatch('_fetchmeters', null, { root: true })
+      })
+  },
+  async _updatemeter ({ dispatch }, data) {
+    await this.$api
+      .$put(`/meters/${data.id}`, data.payload)
+      .then((response) => {
+        dispatch('_fetchmeters', null, { root: true })
+      })
   }
 }
 

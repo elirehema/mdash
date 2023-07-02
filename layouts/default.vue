@@ -1,142 +1,55 @@
 <!-- Please remove this file from your project -->
 <template>
-  <div class="text-gray-600 font-body bg-gray-100">
-    <div class="flex justify-between p-5 bg-primary">
+  <v-app dark>
+    <v-app-bar :clipped-left="clipped" fixed app color="primary" flat>
       <nuxt-link to="/">
-        <div class="grid grid-cols-2 justify-center content-center ">
-          <div class="justify-self-center">
-            <img class="h-10 w-10" src="icon.png">
-          </div>
-          <div class="mt-1 font-bold text-white text-2xl justify-self-center">
-            NexIoT
-          </div>
-        </div>
+        <img height="45" class="ml-5" src="nexiot.png">
       </nuxt-link>
-
-      <div class="flex justify-between gap-2 ">
-        <div class="hidden mr-12 sm:flex justify-between gap-4 text-white font-semibold underline underline-offset-4">
-          <nuxt-link to="/">
-            <svg
-              class="fill-primary hover:fill-indigo-500 bg-blue-50 rounded-full p-2 "
-              width="30"
-              height="30"
-              fill="none"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+      <v-spacer />
+      <v-btn
+        v-for="button in buttons"
+        :key="button.to"
+        class="mx-1"
+        fab
+        x-small
+        :to="button.to"
+        color="default"
+      >
+        <v-tooltip bottom>
+          <template #activator="{ on, attrs }">
+            <v-icon
+              color="primary"
+              v-bind="attrs"
+              v-on="on"
             >
-              <path d="M10.55 2.532a2.25 2.25 0 0 1 2.9 0l6.75 5.692c.507.428.8 1.057.8 1.72v9.803a1.75 1.75 0 0 1-1.75 1.75h-3.5a1.75 1.75 0 0 1-1.75-1.75v-5.5a.25.25 0 0 0-.25-.25h-3.5a.25.25 0 0 0-.25.25v5.5a1.75 1.75 0 0 1-1.75 1.75h-3.5A1.75 1.75 0 0 1 3 19.747V9.944c0-.663.293-1.292.8-1.72l6.75-5.692Zm1.933 1.147a.75.75 0 0 0-.966 0L4.767 9.37a.75.75 0 0 0-.267.573v9.803c0 .138.112.25.25.25h3.5a.25.25 0 0 0 .25-.25v-5.5c0-.967.784-1.75 1.75-1.75h3.5c.966 0 1.75.783 1.75 1.75v5.5c0 .138.112.25.25.25h3.5a.25.25 0 0 0 .25-.25V9.944a.75.75 0 0 0-.267-.573l-6.75-5.692Z" />
-            </svg>
-          </nuxt-link>
-          <nuxt-link to="/meters">
-            <svg
-              class="fill-primary hover:fill-indigo-500 bg-blue-50 rounded-full p-2"
-              width="30"
-              height="30"
-              fill="none"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="m10.05 15.42 6.256-8.475a.694.694 0 0 1 1.235.57l-.03.098-3.87 9.799a2.07 2.07 0 1 1-3.737-1.765l.069-.116.076-.11 6.257-8.476-6.257 8.476Zm8.56-8.006a10.66 10.66 0 0 1 2.022 2.172c.524.749 1.03 1.656 1.32 2.398a.75.75 0 1 1-1.397.547 8.238 8.238 0 0 0-.378-.812l-2.05 1.183a.75.75 0 0 1-.834-1.242l.085-.057 2.018-1.166-.23-.314a9.156 9.156 0 0 0-1.058-1.16l.38-.964c.038-.096.067-.194.087-.292l.024-.147.01-.146Zm-2.63-1.561a1.715 1.715 0 0 0-.306.328l-.114.14-.54.733a9.205 9.205 0 0 0-2.17-.47v2.672a.75.75 0 0 1-1.493.102l-.007-.102v-2.69A9.108 9.108 0 0 0 6.658 8.2c-.816.572-1.528 1.322-2.119 2.205l2.082 1.202a.75.75 0 0 1-.658 1.344l-.092-.045-2.074-1.197c-.128.266-.246.54-.356.821a.75.75 0 0 1-1.398-.543c.807-2.075 2.08-3.843 3.754-5.016a10.642 10.642 0 0 1 10.183-1.117Z" />
-            </svg>
-          </nuxt-link>
-          <nuxt-link to="/users">
-            <svg
-              class="fill-primary hover:fill-indigo-500 bg-blue-50 rounded-full p-2 shadow hover:shadow-lg "
-              width="30"
-              height="30"
-              fill="none"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M14.754 10c.966 0 1.75.784 1.75 1.75v4.749a4.501 4.501 0 0 1-9.002 0V11.75c0-.966.783-1.75 1.75-1.75h5.502Zm0 1.5H9.252a.25.25 0 0 0-.25.25v4.749a3.001 3.001 0 0 0 6.002 0V11.75a.25.25 0 0 0-.25-.25ZM3.75 10h3.381a2.738 2.738 0 0 0-.618 1.5H3.75a.25.25 0 0 0-.25.25v3.249a2.501 2.501 0 0 0 3.082 2.433c.085.504.24.985.453 1.432A4.001 4.001 0 0 1 2 14.999V11.75c0-.966.784-1.75 1.75-1.75Zm13.125 0h3.375c.966 0 1.75.784 1.75 1.75V15a4 4 0 0 1-5.03 3.866c.214-.448.369-.929.455-1.433A2.5 2.5 0 0 0 20.5 15v-3.25a.25.25 0 0 0-.25-.25h-2.757a2.738 2.738 0 0 0-.618-1.5ZM12 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm6.5 1a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm-13 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm6.5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm6.5 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-13 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z" />
-            </svg>
-          </nuxt-link>
-          <nuxt-link v-if="isadmin" to="/companies">
-            <svg
-              class="fill-primary hover:fill-indigo-500 bg-blue-50 rounded-full p-2 "
-              width="30"
-              height="30"
-              fill="none"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M12 3a.75.75 0 0 1 .743.648l.007.102v16.5a.75.75 0 0 1-1.493.102l-.007-.102V3.75A.75.75 0 0 1 12 3ZM8.255 6a.75.75 0 0 1 .743.648l.007.102v10.5a.75.75 0 0 1-1.493.102l-.007-.102V6.75a.75.75 0 0 1 .75-.75Zm7.49 0a.75.75 0 0 1 .743.648l.007.102v10.5a.75.75 0 0 1-1.493.102l-.007-.102V6.75a.75.75 0 0 1 .75-.75ZM4.751 9a.75.75 0 0 1 .743.648l.007.102v4.5a.75.75 0 0 1-1.493.102l-.007-.102v-4.5a.75.75 0 0 1 .75-.75Zm14.501 0a.75.75 0 0 1 .744.648l.006.102v4.499a.75.75 0 0 1-1.493.101l-.007-.101V9.75a.75.75 0 0 1 .75-.75Z" />
-            </svg>
-          </nuxt-link>
-          <nuxt-link to="/purchases">
-            <svg
-              class="fill-primary hover:fill-indigo-500 bg-blue-50 rounded-full p-2 "
-              width="30"
-              height="30"
-              fill="none"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M16.749 2h4.554l.1.014.099.028.06.026c.08.034.153.085.219.15l.04.044.044.057.054.09.039.09.019.064.014.064.009.095v4.532a.75.75 0 0 1-1.493.102l-.007-.102V4.559l-6.44 6.44a.75.75 0 0 1-.976.073L13 11 9.97 8.09l-5.69 5.689a.75.75 0 0 1-1.133-.977l.073-.084 6.22-6.22a.75.75 0 0 1 .976-.072l.084.072 3.03 2.91L19.438 3.5h-2.69a.75.75 0 0 1-.742-.648l-.007-.102a.75.75 0 0 1 .648-.743L16.75 2ZM3.75 17a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5a.75.75 0 0 1 .75-.75Zm5.75-3.25a.75.75 0 0 0-1.5 0v7.5a.75.75 0 0 0 1.5 0v-7.5ZM13.75 15a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0v-5.5a.75.75 0 0 1 .75-.75Zm5.75-4.25a.75.75 0 0 0-1.5 0v10.5a.75.75 0 0 0 1.5 0v-10.5Z" />
-            </svg>
-          </nuxt-link>
-          <nuxt-link to="/tracks">
-            <svg
-              class="fill-primary hover:fill-indigo-500 bg-blue-50 rounded-full p-2 "
-              width="30"
-              height="30"
-              fill="none"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M13.22 17.219a.75.75 0 0 0-.073.976l.073.084 2.367 2.37a.77.77 0 0 0 .664.351.786.786 0 0 0 .611-.276l.053-.075 2.367-2.37.073-.084a.75.75 0 0 0 .007-.882l-.08-.094-.084-.073a.75.75 0 0 0-.883-.007l-.094.08L17 18.44V3.656l-.007-.089c-.05-.32-.363-.567-.743-.567s-.694.247-.743.567l-.007.09V18.44l-1.22-1.221-.084-.073a.75.75 0 0 0-.976.073Zm-6.97 2.789A2.25 2.25 0 0 1 4 17.758v-11.5a2.25 2.25 0 0 1 2.25-2.25h6a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 0-.75.75v11.5c0 .414.336.75.75.75h4a.75.75 0 0 1 0 1.5h-4Z" />
-            </svg>
-          </nuxt-link>
-          <nuxt-link v-if="isadmin" to="/system">
-            <svg
-              class="fill-primary hover:fill-indigo-500 bg-blue-50 rounded-full p-2 "
-              width="30"
-              height="30"
-              fill="none"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M12.012 2.25c.734.008 1.465.093 2.182.253a.75.75 0 0 1 .582.649l.17 1.527a1.384 1.384 0 0 0 1.927 1.116l1.401-.615a.75.75 0 0 1 .85.174 9.792 9.792 0 0 1 2.204 3.792.75.75 0 0 1-.271.825l-1.242.916a1.381 1.381 0 0 0 0 2.226l1.243.915a.75.75 0 0 1 .272.826 9.797 9.797 0 0 1-2.204 3.792.75.75 0 0 1-.848.175l-1.407-.617a1.38 1.38 0 0 0-1.926 1.114l-.169 1.526a.75.75 0 0 1-.572.647 9.518 9.518 0 0 1-4.406 0 .75.75 0 0 1-.572-.647l-.168-1.524a1.382 1.382 0 0 0-1.926-1.11l-1.406.616a.75.75 0 0 1-.849-.175 9.798 9.798 0 0 1-2.204-3.796.75.75 0 0 1 .272-.826l1.243-.916a1.38 1.38 0 0 0 0-2.226l-1.243-.914a.75.75 0 0 1-.271-.826 9.793 9.793 0 0 1 2.204-3.792.75.75 0 0 1 .85-.174l1.4.615a1.387 1.387 0 0 0 1.93-1.118l.17-1.526a.75.75 0 0 1 .583-.65c.717-.159 1.45-.243 2.201-.252Zm0 1.5a9.135 9.135 0 0 0-1.354.117l-.109.977A2.886 2.886 0 0 1 6.525 7.17l-.898-.394a8.293 8.293 0 0 0-1.348 2.317l.798.587a2.881 2.881 0 0 1 0 4.643l-.799.588c.32.842.776 1.626 1.348 2.322l.905-.397a2.882 2.882 0 0 1 4.017 2.318l.11.984c.889.15 1.798.15 2.687 0l.11-.984a2.881 2.881 0 0 1 4.018-2.322l.905.396a8.296 8.296 0 0 0 1.347-2.318l-.798-.588a2.881 2.881 0 0 1 0-4.643l.796-.587a8.293 8.293 0 0 0-1.348-2.317l-.896.393a2.884 2.884 0 0 1-4.023-2.324l-.11-.976a8.988 8.988 0 0 0-1.333-.117ZM12 8.25a3.75 3.75 0 1 1 0 7.5 3.75 3.75 0 0 1 0-7.5Zm0 1.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
-            </svg>
-          </nuxt-link>
-        </div>
-        <nuxt-link to="/me">
-          <svg
-            class="fill-white cursor-pointer"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M17.754 14a2.249 2.249 0 0 1 2.25 2.249v.575c0 .894-.32 1.76-.902 2.438-1.57 1.834-3.957 2.739-7.102 2.739-3.146 0-5.532-.905-7.098-2.74a3.75 3.75 0 0 1-.898-2.435v-.577a2.249 2.249 0 0 1 2.249-2.25h11.501Zm0 1.5H6.253a.749.749 0 0 0-.75.749v.577c0 .536.192 1.054.54 1.461 1.253 1.468 3.219 2.214 5.957 2.214s4.706-.746 5.962-2.214a2.25 2.25 0 0 0 .541-1.463v-.575a.749.749 0 0 0-.749-.75ZM12 2.004a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"
-            />
-          </svg>
-        </nuxt-link>
-
-        <svg
-          class="fill-yellow-400 cursor-pointer"
-          width="24"
-          height="24"
-          fill="none"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-          @click="$store.dispatch('_logoutsession')"
-        >
-          <path
-            d="M8.204 4.82a.75.75 0 0 1 .634 1.36A7.51 7.51 0 0 0 4.5 12.991c0 4.148 3.358 7.51 7.499 7.51s7.499-3.362 7.499-7.51a7.51 7.51 0 0 0-4.323-6.804.75.75 0 1 1 .637-1.358 9.01 9.01 0 0 1 5.186 8.162c0 4.976-4.029 9.01-9 9.01C7.029 22 3 17.966 3 12.99a9.01 9.01 0 0 1 5.204-8.17ZM12 2.496a.75.75 0 0 1 .743.648l.007.102v7.5a.75.75 0 0 1-1.493.102l-.007-.102v-7.5a.75.75 0 0 1 .75-.75Z"
-          />
-        </svg>
-      </div>
-    </div>
-
-    <div class=" bg-gray-100">
-      <div class="rounded-xl h-screen m-5 px-2 mr-5 bg-[#FAFAFA]">
-        <Nuxt />
-      </div>
-    </div>
-  </div>
+              mdi-{{ button.icon }}
+            </v-icon>
+          </template>
+          <span>{{ button.tooltip }}</span>
+        </v-tooltip>
+      </v-btn>
+      <v-btn
+        class="mx-4"
+        fab
+        x-small
+        elevation="0"
+        color="warning  darken-1"
+        @click="$store.dispatch('_logoutsession')"
+      >
+        <v-icon color="white">
+          mdi-power
+        </v-icon>
+      </v-btn>
+    </v-app-bar>
+    <v-main>
+      <v-container class="ma-2" height="100%" fluid>
+        <nuxt />
+      </v-container>
+    </v-main>
+    <v-footer :absolute="!fixed" app>
+      <!--<footer-component />-->
+    </v-footer>
+  </v-app>
 </template>
 
 <script >
@@ -146,7 +59,45 @@ export default {
   data () {
     return {
       foodname: '5 Bean Chilli Stews',
-      menu: false
+      menu: false,
+      clipped: false,
+      drawer: false,
+      fixed: false,
+      messages: 8,
+      adv: 7,
+      notifications: 1,
+      buttons: [
+        {
+          to: '/',
+          icon: 'home-variant-outline',
+          tooltip: 'Go back to home'
+        },
+        {
+          to: '/meters',
+          icon: 'gauge',
+          tooltip: 'Meters'
+        },
+        {
+          to: '/users',
+          icon: 'account-group-outline',
+          tooltip: 'Users'
+        },
+        {
+          to: '/companies',
+          icon: 'domain',
+          tooltip: 'Companies'
+        },
+        {
+          to: '/purchases',
+          icon: 'finance',
+          tooltip: 'Credit Purchases'
+        },
+        {
+          to: '/system',
+          icon: 'cog-outline',
+          tooltip: 'System Settings'
+        }
+      ]
     }
   },
   computed: {

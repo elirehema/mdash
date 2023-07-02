@@ -1,103 +1,81 @@
 <template>
-  <div v-if="users" class="container min-w-full">
-    <div class="p-5 border-b flex flex-row justify-between">
-      <div>
-        <p class="font-bold text-primary text-3xl">
-          Users
-        </p>
-        <p class="text-sm font-light">
-          List of all system users
-        </p>
-      </div>
-      <div>
-        <nuxt-link to="/users/add">
-          <button type="button" class="button">
-            + New User
-          </button>
-        </nuxt-link>
-        <export-button report="users" />
-      </div>
-    </div>
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead
-        class="
-          text-xs text-gray-700
-          uppercase
-          bg-gray-50
-          dark:bg-gray-700 dark:text-gray-900
-        "
+  <v-data-table
+    v-if="users"
+    :headers="headers"
+    :items="users"
+    :items-per-page="15"
+    class="elevation-1"
+    :server-items-length="pages"
+    @click:row="handleRowClick"
+    @update:items-per-page="$emit('paginate',$event)"
+    @update:options="$emit('paginate',$event)"
+  >
+    <template #top>
+      <v-toolbar
+        flat
       >
-        <tr>
-          <th
-            v-for="(field, i) in fields"
-            :key="i"
-            scope="col"
-            class="py-3 px-6"
-          >
-            {{ field }}
-          </th>
-          <th scope="col" class="py-3 px-6">
-            <span class="sr-only">Edit</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(c, i) in users"
-          :key="i"
-          class="
-            odd:bg-gray-50
-            bg-white
-            border-b
-            hover:bg-gray-100
-            dark:bg-gray-800 dark:border-gray-700
-          "
+        <v-toolbar-title class="font-weight-bold">
+          Users
+        </v-toolbar-title>
+        <v-spacer />
+
+        <export-button report="users" />
+      </v-toolbar>
+    </template>
+    <template #item.status="{ item }">
+      <v-icon
+        v-if="item.isActive"
+        small
+        color="green"
+      >
+        mdi-check
+      </v-icon>
+      <v-icon
+        v-else
+        small
+        color="blue"
+      >
+        mdi-close
+      </v-icon>
+    </template>
+    <template #item.actions="{ item }">
+      <v-container class="ma-0 pa-0" @click.stop>
+        <v-icon
+          small
+          class="mr-2"
+          color="info"
+          @click="editItem(item)"
         >
-          <th
-            scop="row"
-            class="
-              py-4
-              px-6
-              font-medium
-              text-gray-900
-              whitespace-nowrap
-              dark:text-white
-            "
-          >
-            {{ c.firstname }} {{ c.lastname }}
-          </th>
-          <td class="py-4 px-6">
-            {{ c.email }}
-          </td>
-          <td class="py-4 px-6">
-            {{ c.phone }}
-          </td>
-          <td class="py-4 px-6">
-            {{ c.isActive }}
-          </td>
-          <td class="py-4 px-6 text-right">
-            <a
-              href="#"
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-              "
-            >Edit</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          mdi-pencil
+        </v-icon>
+      </v-container>
+    </template>
+    <template #item.updated="{ item }">
+      <span>{{ item.updatedAt | dateformat }}</span>
+    </template>
+  </v-data-table>
+  <skeleton-table-loader v-else />
 </template>
 <script >
 import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      fields: ['Name', 'Email', 'Phone', 'Active ?'],
-      menu: false
+      headers: [
+
+        { text: 'Name', value: 'firstname' },
+        {
+          text: 'Email',
+          value: 'email'
+        },
+        {
+          text: 'Phone',
+          value: 'phone'
+        },
+        { text: 'Is Active ?', value: 'status' },
+        { text: 'Last Updated', value: 'updated' },
+        { text: 'Action', value: 'actions' }
+      ]
     }
   },
   computed: {

@@ -1,104 +1,34 @@
 <template>
-  <div v-if="companies" class="container min-w-full">
-    <div class="p-5 border-b flex flex-row justify-between">
-      <div>
-        <p class="font-bold text-primary text-3xl">
-          Companies
-        </p>
-        <p class="text-sm font-light">
-          List of all registered companies
-        </p>
-      </div>
-      <div v-if="isadmin" class="flex justify-end ">
-        <form>
-          <div class="inline-flex justify-between gap-4 py-4">
-            <input v-if="save" v-model="company.name" placeholder="Company Name" class=" rounded-lg  border border-indigo-400 min-w-64 placeholder:text-gray-400 p-2" required>
-
-            <input v-if="save" v-model="company.externalId" placeholder="External ID" class=" rounded-lg  border border-indigo-400 min-w-64 placeholder:text-gray-400 p-2" required>
-
-            <div>
-              <button v-if="save" type="submit" class="bg-primary font-bold text-white p-2 px-3 rounded-lg border border-primary" @click="savecompany">
-                Save Company
-              </button>
-              
-              <button v-else type="button" class="button" @click="save = !save">
-                + New Company
-              </button>
-              <export-button report="companies" />
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-      <thead
-        class="
-          text-xs text-gray-700
-          uppercase
-          bg-gray-50
-          dark:bg-gray-700 dark:text-gray-900
-        "
+  <v-data-table
+    :headers="headers"
+    :items="companies"
+    :items-per-page="5"
+    class="elevation-1"
+  >
+    <template #top>
+      <v-toolbar flat>
+        <v-toolbar-title class="font-weight-bold">Companies</v-toolbar-title>
+        <v-spacer />
+        <v-btn
+          color="primary"
+          dark
+          class="mb-2"
+        ><v-icon left>mdi-plus</v-icon>
+          New Company
+        </v-btn>
+        <export-button report="companies" />
+      </v-toolbar>
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <v-icon
+        small
+        class="mr-2"
+        @click="editItem(item)"
       >
-        <tr>
-          <th
-            v-for="(field, i) in fields"
-            :key="i"
-            scope="col"
-            class="py-3 px-6"
-          >
-            {{ field }}
-          </th>
-          <th scope="col" class="py-3 px-6">
-            <span class="sr-only">Edit</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(c, i) in companies"
-          :key="i"
-          class="
-            odd:bg-gray-50
-            bg-white
-            border-b
-            hover:bg-gray-100
-            dark:bg-gray-800 dark:border-gray-700
-          "
-        >
-          <th
-            scop="row"
-            class="
-              py-4
-              px-6
-              font-medium
-              text-gray-900
-              whitespace-nowrap
-              dark:text-white
-            "
-          >
-            {{ c.id }}
-          </th>
-          <td class="py-4 px-6">
-            {{ c.name }}
-          </td>
-          <td class="py-4 px-6">
-            {{ c.externalId }}
-          </td>
-          <td class="py-4 px-6 text-right">
-            <a
-              href="#"
-              class="
-                font-medium
-                text-blue-600
-                dark:text-blue-500
-                hover:underline
-              "
-            >Edit</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+        mdi-pencil
+      </v-icon>
+    </template>
+  </v-data-table>
 </template>
 <script >
 import { mapGetters } from 'vuex'
@@ -111,6 +41,17 @@ export default {
       save: false,
       input: false,
       isadmin: false,
+      headers: [
+        {
+          text: 'Id',
+          sortable: false,
+          value: 'id'
+        },
+        { text: 'Calories', value: 'name' },
+        { text: 'External ID', value: 'externalId' },
+        { text: 'Tarrif Enabled', value: 'isTariffEnabled' },
+        { text: 'Action', value: 'actions' }
+      ],
       company: {
         name: null,
         externalId: null
@@ -139,6 +80,9 @@ export default {
         this.save = false
         this.input = false
       })
+    },
+    editItem (val) {
+        console.log(val)
     },
     async fetchuseraccount (accountId) {
       await this.$api

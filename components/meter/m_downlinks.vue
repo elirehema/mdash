@@ -4,7 +4,7 @@
     :headers="headers"
     :items="commands"
     :items-per-page="15"
-    class="elevation-1"
+    class="elevation-0"
     :server-items-length="pages"
     @update:items-per-page="$emit('paginate',$event)"
     @update:options="$emit('paginate',$event)"

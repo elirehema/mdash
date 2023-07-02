@@ -1,0 +1,14 @@
+@mixin font_family {
+    font-family: "Nunito", sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  @mixin font_style{
+      -webkit-font-smoothing: antialiased;
+      font-family: 'Nunito', sans-serif !important;
+      -webkit-font-smoothing: antialiased !important;
+      -moz-osx-font-smoothing: grayscale !important;
+      text-rendering: optimizeLegibility !important;
+      text-shadow: rgba(0,0,0,.01) 0 0 0px;
+  }
