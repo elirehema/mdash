@@ -37,7 +37,7 @@
         @click="$store.dispatch('_logoutsession')"
       >
         <v-icon color="white">
-          mdi-power
+          mdi-logout-variant
         </v-icon>
       </v-btn>
     </v-app-bar>

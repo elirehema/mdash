@@ -1,65 +1,118 @@
 <template>
-  <div class="grid grid-cols-12 bg-[#29465B] ">
-    <div class="col-span-12 md:col-span-4 2xl:col-span-5 mt-0 grid md:justify-start md:content-start justify-center content-center ">
-      <div>
-        <svg
-          class="fill-gray-100"
-          width="100"
-          height="100"
-          fill="none"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M11.47 2.22a.75.75 0 0 1 1.06 0c.403.403 1.999 2.127 3.499 4.362C17.509 8.785 19 11.635 19 14.25c0 2.524-.746 4.479-2.044 5.806C15.659 21.38 13.889 22 12 22c-1.89 0-3.659-.619-4.956-1.944C5.746 18.729 5 16.774 5 14.25c0-2.615 1.492-5.465 2.971-7.668 1.5-2.235 3.096-3.96 3.499-4.362Z" />
-        </svg>
+  <v-form class="form-box" @submit.prevent="formSubmit">
+    <v-container color="primary" height="100%">
+      <!--- <v-row class="mt-0">
+        <v-col cols="12" sm="12" md="2">
+          <img
+            src="/water.png"
+            alt="homepage"
+            width="40px"
+            class="ml-2 dark-logo"
+          >
+        </v-col>
+      </v-row>-->
+      <div class="d-flex align-center justify-center">
+        <v-row class="mt-0" no-gutters>
+          <v-col cols="12" md="5" class="ml-5  d-flex justify-center align-center ">
+            <v-list color="transparent">
+              <v-list-item three-line>
+                <v-list-item-content>
+                  <v-list-item-title class="text-sm-h4 font-weight-black text-md-h3 text-lg-h2 white--text text-sm-center text-md-left">
+                    DUWASA metering
+                  </v-list-item-title>
+                  <v-list-item-subtitle class="mt-10 text-sm-h5 text-md-h4 text-lg-h4 white--text text-sm-center text-md-left">
+                    <span>Allows customers to make informed decisions on water usage and costs</span>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-col>
+          <v-spacer />
+          <v-col cols="12" md="5" lg="4" class="mt-0 d-flex justify-center">
+            <v-card class="pa-8">
+              <v-card-title class="d-flex justify-center">
+                <img
+                  src="/water.png"
+                  alt="homepage"
+                  height="100px"
+                  class="ml-2 dark-logo"
+                >
+              </v-card-title>
+              <v-card-text>
+                <v-row no-gutters class="mt-5">
+                  <v-col cols="12" class=" mt-3">
+                    <v-text-field
+                      v-model="form.email"
+                      color="black"
+                      class=" px-3"
+                      placeholder="email"
+                      label="Email"
+                      required
+                    />
+                  </v-col>
+                  <v-col cols="12" class=" mt-3">
+                    <v-text-field
+                      v-model="form.password"
+                      color="black"
+                      class=" px-3"
+                      placeholder="*********"
+                      type="password"
+                      label="Enter Password"
+                      required
+                    />
+                  </v-col>
+                  <v-col cols="12" class=" mt-5 d-flex justify-center">
+                    <v-btn block type="submit" color="button" dark>
+                      Continue
+                      <v-icon right>
+                        mdi-arrow-right-bold
+                      </v-icon>
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="12" />
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </div>
-    </div>
-
-    <div class="col-span-12 md:col-span-4 2xl:col-span-2  px-5 grid place-items-center h-screen ">
-      <div class="bg-gray-100 rounded-lg border grid place-items-center p-8 w-full">
-        <h1 class="font-bold text-lg pb-6">
-          Sign In Form
-        </h1>
-        <input v-model="request.email" class=" rounded-lg py-4 px-2 border border-1 border-green-200 hover:border-green-400 w-full " placeholder="Enter email">
-        <input v-model="request.password" type="password" class=" rounded-lg py-4 px-2 border border-1 border-green-200 hover:border-green-400 w-full mt-8" placeholder="Password ***********">
-        <button
-          class="
-            border-green-500
-            md:border-2
-            bg-primary hover:text-white
-            mt-12
-            btn text-center text-white
-            transition
-            ease-out
-            w-full
-            rounded-full
-            duration-500
-          "
-          @click="authenticate"
-        >
-          Sign In
-        </button>
-      </div>
-    </div>
-
-    <div class="col-span-4 md:col-span-4 2xl:col-span-5 p-12  h-full  " />
-  </div>
+    </v-container>
+  </v-form>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
-  layout: 'home',
+  layout: 'login',
   data () {
     return {
-      request: {
+      form: {
         email: '',
         password: ''
-      }
+      },
+
+      title: 'Market Grid : Login'
+    }
+  },
+  computed: {
+    ...mapGetters(['processing'])
+
+  },
+
+  created () {
+    // check if user logged in othewise send them packing
+
+    if (this.isAuthenticated) {
+      this.$router.replace('/')
     }
   },
   methods: {
-    authenticate () {
-      this.$store.dispatch('_authenticate', this.request)
+    ...mapActions(['login']),
+
+    formSubmit () {
+      this.$store.dispatch('_authenticate', this.form)
     }
   }
+
 }
-</script>>
+</script>
