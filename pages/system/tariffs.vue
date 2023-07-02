@@ -56,7 +56,7 @@
                         label="Tariff Name"
                       />
                     </v-col>
-              
+
                     <v-col
                       cols="12"
                       sm="6"
@@ -140,7 +140,7 @@
       </v-btn>
     </template>
     <template #item.updatedAt="{ item }">
-      <span>{{ item.updatedAt | dateformat }}</span>
+      <span>{{ item.updatedAt | simpledateformat }}</span>
     </template>
     <template #item.actions="{ item }">
       <v-container class="ma-0 pa-0" @click.stop>
@@ -185,7 +185,7 @@ export default {
         { text: 'Is Active ?', value: 'status' },
         { text: 'Updated At', value: 'updatedAt' },
         { text: 'Enable/Disable', value: 'action' },
-        { text: 'Actions', value: 'actions' },
+        { text: 'Actions', value: 'actions' }
       ]
 
     }

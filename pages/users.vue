@@ -51,7 +51,7 @@
       </v-container>
     </template>
     <template #item.updated="{ item }">
-      <span>{{ item.updatedAt | dateformat }}</span>
+      <span>{{ item.updatedAt | simpledateformat }}</span>
     </template>
   </v-data-table>
   <skeleton-table-loader v-else />

@@ -18,6 +18,7 @@ Vue.filter('dateformat', function (value) {
 })
 Vue.filter('simpledateformat', function (value) {
   if (!value) { return '' }
-  const dateString = value[2] + '-' + value[1] + '-' + value[0]
-  return dateString
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+  return new Date(value).toLocaleDateString(undefined, options)
 })
