@@ -36,7 +36,18 @@ const actions = {
     await this.$api
       .$post('/companies', requestbody)
       .then(() => {
-        dispatch('_fetchcompanies')
+        //setTimeout(dispatch('_fetchcompanies', null, { root: true }), 5000)
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error)
+      })
+  },
+  async _updatecompany ({ dispatch }, data) {
+    await this.$api
+      .$put(`/companies/${data.id}`, data.payload)
+      .then(() => {
+        //setTimeout(dispatch('_fetchcompanies', null, { root: true }), 5000)
       })
       .catch((error) => {
         // eslint-disable-next-line no-console

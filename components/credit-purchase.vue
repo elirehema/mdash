@@ -6,6 +6,7 @@
     :items-per-page="15"
     class="elevation-1"
     :server-items-length="pages"
+    @click:row="handleRowClick"
     @update:items-per-page="$emit('paginate',$event)"
     @update:options="$emit('paginate',$event)"
   >
@@ -14,7 +15,7 @@
         flat
       >
         <v-toolbar-title class="font-weight-bold">
-          Credit Purchases 
+          Credit Purchases
         </v-toolbar-title>
         <v-spacer />
 
@@ -22,10 +23,10 @@
       </v-toolbar>
     </template>
     <template #item.transactionDate="{ item }">
-      <span>{{ item.transactionDate | dateformat }}</span>
+      <span>{{ item.transactionDate | simpledateformat }}</span>
     </template>
     <template #item.createdAt="{ item }">
-      <span>{{ item.createdAt | dateformat }}</span>
+      <span>{{ item.createdAt | simpledateformat }}</span>
     </template>
   </v-data-table>
   <skeleton-table-loader v-else />
@@ -60,6 +61,11 @@ export default {
         { text: 'Transaction Date', value: 'transactionDate' },
         { text: 'Created At', value: 'createdAt' }
       ]
+    }
+  },
+  methods: {
+    handleRowClick (val) {
+      this.$router.push(`/purchases/${val.id}`)
     }
   }
 

@@ -192,7 +192,6 @@ export default {
       valid: true,
       rules: {
         required: value => !!value || 'Field Required'
-
       },
       editedItem: {
         id: 0,
