@@ -29,6 +29,30 @@ const actions = {
       .catch(() => {
         commit('GET_GATEWAYS_ERROR')
       })
+  },
+  async _addnewgateway ({ commit }, requestbody) {
+    await this.$api
+      .$post('/gateways', requestbody)
+      .then(() => {
+        setTimeout(() => {
+          dispatch('_fetchgateways', null, { root: true })
+        }, 5000)
+      })
+      .catch(() => {
+        commit('GET_GATEWAYS_ERROR')
+      })
+  },
+  async _updategateway ({ commit }, data) {
+    await this.$api
+      .$put(`/gateways/${data.id}`, data.payload)
+      .then(() => {
+        setTimeout(() => {
+          dispatch('_fetchgateways', null, { root: true })
+        }, 5000)
+      })
+      .catch(() => {
+        commit('GET_GATEWAYS_ERROR')
+      })
   }
 }
 
