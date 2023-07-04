@@ -17,7 +17,8 @@
           List of all meter downlink commands
         </v-toolbar-title>
         <v-spacer />
-        <v-btn class="text-capitalize" color="blue" x-small text @click="$emit('update')">
+        <v-btn class="text-capitalize" color="primary" small @click="$emit('update')">
+          <v-icon left x-small>mdi-eye</v-icon>
           View Usage Tracks
         </v-btn>
       </v-toolbar>

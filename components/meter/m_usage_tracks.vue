@@ -17,8 +17,9 @@
           List of Meter Usage tracks
         </v-toolbar-title>
         <v-spacer />
-        <v-btn class="text-capitalize" color="blue" x-small text @click="$emit('update')">
-          Meter Downlinks
+        <v-btn class="text-capitalize" dark color="primary" small @click="$emit('update')">
+        <v-icon left x-small>mdi-eye</v-icon>
+          View Meter Downlinks
         </v-btn>
       </v-toolbar>
     </template>
@@ -76,7 +77,7 @@ export default {
           sortable: false,
           value: 'id'
         },
-        { text: 'Serial No.#', value: 'meter.serialNumber' },
+        { text: 'Credits', value: 'credits' },
         { text: 'Recorded Unit', value: 'recordedUnit' },
         { text: 'Offset Unit', value: 'offSet' },
         { text: 'Valve Status', value: 'status' },

@@ -1,7 +1,7 @@
 <template>
   <v-card v-if="purchase">
-    <v-container class="d-flex justify-space-between mb-6">
-      <v-card elevation="0" class="px-5 py-5" style="background-color: bisque;">
+    <v-container fluid class="d-flex justify-space-between mb-6">
+      <v-card elevation="0" class="px-5 py-5" color="#fcf4eb">
         <v-container fluid>
           <p />
           <div>
@@ -18,61 +18,49 @@
           </p>
         </v-container>
       </v-card>
-      <v-card elevation="0" class="px-5 py-5" style="background-color: rgb(245, 238, 230);">
+      <v-card min-width="30%" elevation="0" class="px-5 py-2" color="#fcf4eb">
         <v-container fluid>
-          <div>
-            <span class="font-semibold text-primary text-xs"> Transaction Date: </span>
+          <div class="d-flex justify-space-between">
+            <span class="text-caption"> Meter ID:</span>
+            <span class="text-caption"> {{ purchase.meterId }}</span>
           </div>
-          <div>
-            <span>{{ purchase.transactionDate | dateformat }}</span>
+          <div class="d-flex justify-space-between">
+            <span class="font-semibold text-primary text-caption"> Purchased Units: </span>
+
+            <span class="text-caption">{{ purchase.purchasedUnits }}</span>
           </div>
-          <div>
-            <span class="font-semibold text-primary text-sm"> Meter ID:</span>
+          <div class="d-flex justify-space-between">
+            <span class="font-semibold text-primary text-caption"> Effective Units: </span>
+
+            <span class="text-caption"> {{ purchase.effectiveUnits }}</span>
           </div>
-          <div>
-            <span> {{ purchase.MeterId }}</span>
+          <div class="d-flex justify-space-between">
+            <span class="font-semibold text-primary text-caption"> Off-Set Units: </span>
+
+            <span class="text-caption">{{ purchase.offsetUnits }}</span>
           </div>
-          <div >
-            <span class="font-semibold text-primary text-sm"> Payment Ref: </span>
+          <div class="d-flex justify-space-between">
+            <span class="font-semibold text-primary text-caption"> Tariff: </span>
+
+            <span class="text-caption">{{ purchase.tarrifId }}</span>
           </div>
-          <div>
-            <span>{{ purchase.paymentReference }}</span>
+          <div class="d-flex justify-space-between">
+            <span class="font-semibold text-primary text-caption"> Payment Ref: </span>
+            <span class="text-caption">{{ purchase.paymentReference }}</span>
           </div>
-          <div >
-            <span class="font-semibold text-primary text-sm"> Purchased Units: </span>
+          <div class="d-flex justify-space-between">
+            <span class=" text-caption"> Transaction Date: </span>
+            <span class="text-caption">{{ purchase.transactionDate | dateformat }}</span>
           </div>
-          <div>
-            <span>{{ purchase.purchasedUnits }}</span>
-          </div>
-          <div >
-            <span class="font-semibold text-primary text-sm"> Off-Set Units: </span>
-          </div>
-          <div>
-            <span>{{ purchase.offsetUnits }}</span>
-          </div>
-          <div >
-            <span class="font-semibold text-primary text-sm"> Effective Units: </span>
-          </div>
-          <div>
-            <span> {{ purchase.effectiveUnits }}</span>
-          </div>
-          <div >
-            <span class="font-semibold text-primary text-sm"> Tariff: </span>
-          </div>
-          <div>
-            <span>{{ purchase.tarrifId }}</span>
-          </div>
-          <div >
-            <span class="font-semibold text-primary text-sm"> Recorded At: </span>
-          </div>
-          <div>
-            <span> {{ purchase.createdAt | dateformat }}</span>
+          <div class="d-flex justify-space-between">
+            <span class="font-semibold text-primary text-caption"> Recorded At: </span>
+            <span class="text-caption"> {{ purchase.createdAt | dateformat }}</span>
           </div>
         </v-container>
       </v-card>
     </v-container>
-    <div class="p-5 border-b">
-      <p class="text-sm font-bold">
+    <div class="pl-5 border-b">
+      <p class="font-weight-bold">
         List of all credit purchase transactions
       </p>
     </div>

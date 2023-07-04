@@ -3,7 +3,7 @@
   <v-app dark>
     <v-app-bar :clipped-left="clipped" fixed app color="primary" flat>
       <nuxt-link to="/">
-        <img height="45" class="ml-5" src="nexiot.png">
+        <img height="45" class="ml-5" src="nexis_iot.png">
       </nuxt-link>
       <v-spacer />
       <v-btn

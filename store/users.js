@@ -29,6 +29,34 @@ const actions = {
       .catch(() => {
         commit('GET_USERS_ERROR')
       })
+  },
+  async _registeruser ({ dispatch }, payload) {
+    await this.$api
+      .$post('/users/register', payload)
+      .then(() => {
+        setTimeout(() => {
+          dispatch('_fetchusers', null, { root: true })
+        }, 5000)
+      })
+      .catch(() => {
+        setTimeout(() => {
+          dispatch('_fetchusers', null, { root: true })
+        }, 5000)
+      })
+  },
+  async _updateuser ({ dispatch }, data) {
+    await this.$api
+      .$put(`/users/${data.id}`, data.payload)
+      .then(() => {
+        setTimeout(() => {
+          dispatch('_fetchusers', null, { root: true })
+        }, 5000)
+      })
+      .catch(() => {
+        setTimeout(() => {
+          dispatch('_fetchusers', null, { root: true })
+        }, 5000)
+      })
   }
 }
 

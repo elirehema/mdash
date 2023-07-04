@@ -70,4 +70,8 @@ main.v-main.login {
   background-color: white !important;
   opacity: 0.65;
   text-decoration-color: black;
+}
+
+header.v-toolbar {
+  background-color: #d4dade !important;
 }/*# sourceMappingURL=styles.css.map */

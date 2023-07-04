@@ -25,7 +25,7 @@
               v-on="on"
             >
               <v-icon left>
-                mdi-plus
+                mdi-domain-plus
               </v-icon>
               New Company
             </v-btn>

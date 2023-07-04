@@ -1,7 +1,7 @@
 <template>
   <v-card v-if="meter" elevation="1">
-    <v-container class="d-flex justify-space-between mb-6">
-      <v-card elevation="0" class="px-5 py-5">
+    <v-container fluid class="d-flex justify-space-between mb-6">
+      <v-card min-width="20%" elevation="1" class="px-5 py-5">
         <div>
           <p class="font-bold text-primary  flex flex-row" />
 
@@ -41,7 +41,7 @@
           </div>
         </div>
       </v-card>
-      <v-card elevation="0" outlined class="px-8 py-4">
+      <v-card min-width="20%" elevation="1" outlined class="px-8 py-4">
         <div>
           <div><span class="text-subtitle-1 text-caption"> Serial No: {{ meter.serialNumber }}</span></div>
           <div><span class="text-subtitle-1 text-caption"> Controll No: {{ meter.controlNumber }}</span></div>
