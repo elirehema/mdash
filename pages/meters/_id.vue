@@ -12,7 +12,7 @@
             <span class="font-weight-bold"> Device ID: {{ meter.deviceId }}</span>
           </div>
 
-          <p class="font-weight-thin text-caption text-grey pt-2">
+          <p class="font-weight-thin span text-grey pt-2">
             View meter statistical inforrmations
           </p>
           <div class="mt-5">
@@ -50,14 +50,29 @@
       </v-card>
       <v-card min-width="20%" elevation="1" outlined class="px-8 py-4">
         <div>
-          <div><span class="text-subtitle-1 text-caption"> Serial No: {{ meter.serialNumber }}</span></div>
-          <div><span class="text-subtitle-1 text-caption"> Controll No: {{ meter.controlNumber }}</span></div>
-          <div><span class="text-subtitle-1 text-caption"> Device ID: {{ meter.deviceId }}</span></div>
-          <div><span class="text-subtitle-1 text-caption"> Current Units: {{ meter.bill.credits }}</span></div>
-          <div><span class="text-subtitle-1 text-caption"> Batch No: {{ meter.batchNumber }}</span></div>
-          <div><span class="text-subtitle-1 text-caption"> Offset: {{ meter.bill.offSet }}</span></div>
-          <div @click="shodownlinks = !shodownlinks">
-            <span class="font-bold text-blue-500 text-sm underline italic">{{ !shodownlinks? 'DownLinks':'UsageTrack' }}</span>
+          <div class="d-flex justify-space-between">
+            <span> Serial No: </span>
+            <span>{{ meter.serialNumber }}</span>
+          </div>
+          <div class="d-flex justify-space-between">
+            <span> Controll No: </span>
+            <span>{{ meter.controlNumber }}</span>
+          </div>
+          <div class="d-flex justify-space-between">
+            <span> Device ID: </span>
+            <span>{{ meter.deviceId }}</span>
+          </div>
+          <div class="d-flex justify-space-between">
+            <span> Current Units: </span>
+            <span>{{ meter.bill.credits }}</span>
+          </div>
+          <div class="d-flex justify-space-between">
+            <span> Batch No: </span>
+            <span>{{ meter.batchNumber }}</span>
+          </div>
+          <div class="d-flex justify-space-between">
+            <span> Offset: </span>
+            <span>{{ meter.bill.offSet }}</span>
           </div>
         </div>
       </v-card>

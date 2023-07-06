@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,300&display=swap');
 
 body{
-    font-family: 'Nunito', sans-serif !important;
+    font-family: 'Mulish', sans-serif !important;
 }
 
 h1,
@@ -14,6 +14,7 @@ h6,
 p,
 a,
 span,
+td,
 .text-body-2,
 .text-caption,
 div {
@@ -26,4 +27,7 @@ p {
      @include font_style;
     }
   }
+}
+td,.span, span, span.v-btn__content{
+  font-size: 12px !important;
 }

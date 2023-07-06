@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,700;1,700&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,300&display=swap");
 body {
-  font-family: "Nunito", sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
 }
 
 h1,
@@ -13,11 +13,12 @@ h6,
 p,
 a,
 span,
+td,
 .text-body-2,
 .text-caption,
 div {
   -webkit-font-smoothing: antialiased;
-  font-family: "Nunito", sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
   text-rendering: optimizeLegibility !important;
@@ -26,11 +27,15 @@ div {
 
 p.primary--text.text-h6 {
   -webkit-font-smoothing: antialiased;
-  font-family: "Nunito", sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
   text-rendering: optimizeLegibility !important;
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 0px;
+}
+
+td, .span, span, span.v-btn__content {
+  font-size: 12px !important;
 }
 
 main {
@@ -74,4 +79,38 @@ main.v-main.login {
 
 header.v-toolbar {
   background-color: #d4dade !important;
+}
+
+thead {
+  background-color: #29465B;
+}
+thead tr th span {
+  color: white;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+table tbody tr td {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+th, td {
+  text-align: left;
+  padding: 0px;
+}
+
+tr:nth-child(even) {
+  background-color: #f1f1f2;
+}
+
+.v-date-picker-table {
+  all: unset;
+  all: initial;
+}
+.v-date-picker-table table {
+  all: unset !important;
+  all: initial !important;
 }/*# sourceMappingURL=styles.css.map */

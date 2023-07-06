@@ -1,0 +1,42 @@
+thead{
+    background-color: $primary;
+    & tr{
+        & th{
+            span{
+                color: white;
+               
+            }
+        }
+    }
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    & tbody{
+       & tr{
+           & td{
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+           }
+          }
+    }
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 0px;
+  }
+  
+  
+  tr:nth-child(even) {
+    background-color: $table;
+}
+.v-date-picker-table{
+    all: unset;
+    all: initial;
+    & table{
+        all: unset !important;
+    all: initial !important;
+    }
+}
