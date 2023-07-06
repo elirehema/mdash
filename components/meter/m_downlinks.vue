@@ -1,8 +1,8 @@
 <template>
     <v-data-table
-    v-if="commands"
+    v-if="downlinks"
     :headers="headers"
-    :items="commands"
+    :items="downlinks"
     :items-per-page="15"
     class="elevation-0"
     :server-items-length="pages"
@@ -49,16 +49,18 @@
 <script >
 export default {
   props: {
-    commands: {
+    downlinks: {
       type: Array,
       default: null
+    },
+    pages: {
+      type: Number,
+      default: 1
     }
   },
   data () {
     return {
-      fields: ['ID', 'MeterID', 'Command Type', 'Code', 'Message', 'Status', 'Created at', 'Updated at'],
-      menu: false,
-      pages: 1,
+
       headers: [
         {
           text: 'Id',

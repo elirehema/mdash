@@ -73,9 +73,9 @@ export default {
     return {
       headers: [
         {
-          text: 'Id',
+          text: 'MeterId',
           sortable: false,
-          value: 'id'
+          value: 'meterId'
         },
         { text: 'Credits', value: 'credits' },
         { text: 'Recorded Unit', value: 'recordedUnit' },

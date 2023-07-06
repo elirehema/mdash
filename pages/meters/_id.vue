@@ -16,7 +16,14 @@
             View meter statistical inforrmations
           </p>
           <div class="mt-5">
-            <v-btn v-if="meter.isActive" elevation="0" class="py-2" block color="error" @click="trigermetermanually('off')">
+            <v-btn
+              v-if="meter.isActive"
+              elevation="0"
+              class="py-2"
+              block
+              color="error"
+              @click="trigermetermanually('off')"
+            >
               <v-icon left>
                 mdi-water-check
               </v-icon> Switch Off
@@ -49,15 +56,15 @@
           <div><span class="text-subtitle-1 text-caption"> Current Units: {{ meter.bill.credits }}</span></div>
           <div><span class="text-subtitle-1 text-caption"> Batch No: {{ meter.batchNumber }}</span></div>
           <div><span class="text-subtitle-1 text-caption"> Offset: {{ meter.bill.offSet }}</span></div>
-          <div @click="downlinks = !downlinks">
-            <span class="font-bold text-blue-500 text-sm underline italic">{{ !downlinks? 'DownLinks':'UsageTrack' }}</span>
+          <div @click="shodownlinks = !shodownlinks">
+            <span class="font-bold text-blue-500 text-sm underline italic">{{ !shodownlinks? 'DownLinks':'UsageTrack' }}</span>
           </div>
         </div>
       </v-card>
     </v-container>
 
-    <meter-downlink-commands v-if="downlinks" :commands="meter.downlinks" @update="downlinks = !downlinks" />
-    <meter-usage-tracks v-else :tracks="meter.usageTracks" @update="downlinks = !downlinks" />
+    <meter-downlink-commands v-if="shodownlinks" :pages="pages" :downlinks="downlinks" @paginate="paginatedownlinks" @update="shodownlinks = !shodownlinks" />
+    <meter-usage-tracks v-else :tracks="tracks" :pages="pages" @paginate="paginate" @update="shodownlinks = !shodownlinks" />
   </v-card>
 </template>
 <script >
@@ -70,16 +77,20 @@ export default {
   },
   data () {
     return {
-      fields: ['ID', 'MeterID', 'Previous Unit', 'Recorded Unit', 'Offset', 'Date:Time', 'Active ?'],
       meter: null,
       menu: false,
-      downlinks: false,
+      tracks: null,
+      downlinks: null,
+      pages: 1,
+      shodownlinks: false,
       loading: false
     }
   },
   computed: {},
   created () {
     this.requestmeterinformation()
+    this.paginate({ page: 0, itemsPerPage: Math.round(window.innerHeight / 64) })
+    this.paginatedownlinks({ page: 0, itemsPerPage: Math.round(window.innerHeight / 64) })
   },
   methods: {
     async requestmeterinformation () {
@@ -98,6 +109,26 @@ export default {
           this.loading = false
         })
         .catch(() => {})
+    },
+    async paginate (it) {
+      await this.$api
+        .$get(`/meters/${this.$route.params.id}/tracks`, { params: { page: it.page, size: it.itemsPerPage } })
+        .then((response) => {
+          this.pages = response.totalRows
+          this.page = response.currentPage
+          this.tracks = response.results
+        })
+        .catch((err) => {})
+    },
+    async paginatedownlinks (it) {
+      await this.$api
+        .$get(`/meters/${this.$route.params.id}/downlinks`, { params: { page: it.page, size: it.itemsPerPage } })
+        .then((response) => {
+          this.pages = response.totalRows
+          this.page = response.currentPage
+          this.downlinks = response.results
+        })
+        .catch((err) => {})
     }
   }
 }
