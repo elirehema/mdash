@@ -4,9 +4,8 @@
     :headers="headers"
     :items="purchases"
     :items-per-page="15"
-    class="elevation-1"
+    class="elevation-0"
     :server-items-length="pages"
-    @click:row="handleRowClick"
     @update:items-per-page="$emit('paginate',$event)"
     @update:options="$emit('paginate',$event)"
   >
@@ -40,7 +39,7 @@ export default {
     },
     pages: {
       type: Number,
-      default: -1
+      default: 1
     }
   },
   data () {

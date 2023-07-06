@@ -11,7 +11,7 @@ export default {
     return {
       menu: false,
       purchases: null,
-      pages: -1
+      pages: 1
     }
   },
   created () {
