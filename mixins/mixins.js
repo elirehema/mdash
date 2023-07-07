@@ -8,7 +8,7 @@ const mixins = {
   data () {
     return {
       footerprops: {
-        'items-per-page-options': [5, 10, 20, 30, 40, 50, 10]
+        'items-per-page-options': [10, 20, 30, 40, 50, 10]
       },
       delay: 3000
     }

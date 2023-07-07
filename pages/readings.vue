@@ -3,12 +3,12 @@
     v-if="readings"
     :headers="headers"
     :items="readings"
-    :items-per-page="15"
+    :items-per-page="itemsPerPage"
     class="elevation-1"
-    :server-items-length="pages"
+    :page="page"
+    :server-items-length="items"
     @click:row="handleRowClick"
-    @update:items-per-page="$emit('paginate',$event)"
-    @update:options="$emit('paginate',$event)"
+    @update:options="paginate($event)"
   >
     <template #top>
       <v-toolbar
@@ -70,6 +70,8 @@ export default {
     return {
       page: 1,
       pages: 0,
+      items: 0,
+      itemsPerPage: 10,
       readings: null,
       headers: [
         {
@@ -93,13 +95,16 @@ export default {
       await this.$api
         .$get('/readings/paginate', { params: { page: it.page, size: it.itemsPerPage } })
         .then((response) => {
+          this.page = response.currentPage
           this.readings = response.results
+          this.items = response.totalRows
           this.pages = response.totalPages
+          this.itemsPerPage = response.size
         })
         .catch((_error) => {
         })
     },
-    handleRowClick(val){}
+    handleRowClick (val) {}
   }
 
 }

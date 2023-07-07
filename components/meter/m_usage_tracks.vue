@@ -42,18 +42,6 @@
     <template #item.recordedtime="{ item }">
       <span>{{ item.createdAt | dateformat }}</span>
     </template>
-    <template v-if="tracks.length > 14" #footer.prepend>
-      <v-btn
-        v-if="!titled"
-        class="text-capitalize"
-        color="blue"
-        x-small
-        text
-        to="/tracks"
-      >
-        Load more ...
-      </v-btn>
-    </template>
   </v-data-table>
   <skeleton-table-loader v-else />
 </template>

@@ -3,10 +3,11 @@
     v-if="purchases"
     :headers="headers"
     :items="purchases"
-    :items-per-page="15"
+    :items-per-page="itemsPerPage"
     class="elevation-0"
-    :server-items-length="pages"
-    @update:items-per-page="$emit('paginate',$event)"
+    :page="page"
+    :footer-props="footerprops"
+    :server-items-length="items"
     @update:options="$emit('paginate',$event)"
   >
     <template #top>
@@ -18,7 +19,7 @@
         </v-toolbar-title>
         <v-spacer />
 
-        <export-button report="purchases" />
+        <export-button report="crpurchases" />
       </v-toolbar>
     </template>
     <template #item.transactionDate="{ item }">
@@ -37,7 +38,19 @@ export default {
       type: Array,
       default: null
     },
+    items: {
+      type: Number,
+      default: 0
+    },
+    itemsPerPage: {
+      type: Number,
+      default: 10
+    },
     pages: {
+      type: Number,
+      default: 1
+    },
+    page: {
       type: Number,
       default: 1
     }
@@ -50,7 +63,6 @@ export default {
           sortable: false,
           value: 'controlNumber'
         },
-        { text: 'MeterID', value: 'meterId' },
         { text: 'Amount', value: 'amount' },
         { text: 'Purchased Units', value: 'purchasedUnits' },
         { text: 'Effective Units', value: 'effectiveUnits' },

@@ -13,7 +13,7 @@
       </div>
       <div v-if="totals">
         <v-row no-gutters>
-          <summary-card v-for="(sum,i) in totals" :key="i" :item="sum" />
+          <summary-card v-for="(item,i) in totals" :key="i" :item="item" />
         </v-row>
       </div>
       <div>
@@ -42,44 +42,6 @@ export default {
   },
   data () {
     return {
-      summaries: [
-        {
-          title: 'Usage track',
-          value: '20'
-        },
-        {
-          title: 'Usage track',
-          value: '20'
-        },
-        {
-          title: 'Usage track',
-          value: '20'
-        },
-        {
-          title: 'Usage track',
-          value: '20'
-        },
-        {
-          title: 'Usage track',
-          value: '20'
-        },
-        {
-          title: 'Usage track',
-          value: '20'
-        },
-        {
-          title: 'Usage track',
-          value: '20'
-        },
-        {
-          title: 'Usage track',
-          value: '20'
-        },
-        {
-          title: 'Usage track',
-          value: '20'
-        }
-      ]
     }
   },
   computed: {

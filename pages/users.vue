@@ -6,7 +6,6 @@
     :items-per-page="15"
     class="elevation-1"
     :server-items-length="pages"
-    @click:row="handleRowClick"
     @update:items-per-page="$emit('paginate',$event)"
     @update:options="$emit('paginate',$event)"
   >
@@ -206,6 +205,7 @@ export default {
       dialog: false,
       valid: true,
       editedIndex: -1,
+      pages: 1,
       rules: {
         required: value => !!value || 'Field Required'
       },

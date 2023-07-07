@@ -19,16 +19,7 @@
         </v-toolbar-title>
         <v-spacer />
 
-        <v-btn
-          color="primary"
-          dark
-          class="mb-2 ml-2"
-        >
-          <v-icon left>
-            mdi-download
-          </v-icon>
-          Export CVS
-        </v-btn>
+        <export-button report="purchases" />
       </v-toolbar>
     </template>
     <template #item.status="{ item }">

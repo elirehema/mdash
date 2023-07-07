@@ -190,6 +190,7 @@ export default {
       dialogDelete: false,
       editedIndex: -1,
       valid: true,
+      pages: 1,
       rules: {
         required: value => !!value || 'Field Required'
       },

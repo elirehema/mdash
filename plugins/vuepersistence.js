@@ -6,7 +6,7 @@ export default ({ store }) => {
   window.onNuxtReady(() => {
     createPersistedState({
       paths: [
-        'companies', 'users'
+        'companies', 'users', 'statistics'
       ],
       storage: {
         getItem: key => ls.get(key),

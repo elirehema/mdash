@@ -1,19 +1,5 @@
 const state = () => ({
-  totals: {
-    bills: 0,
-    companies: 0,
-    downlinks: 0,
-    gateways: 0,
-    meters: 0,
-    paymentNotifications: 0,
-    payments: 0,
-    readings: 0,
-    transactions: 0,
-    usageTracks: 0,
-    users: 0,
-    purchases: 0,
-    units: {}
-  }
+  totals: null
 })
 
 const mutations = {
