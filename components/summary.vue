@@ -28,7 +28,9 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      data: "234721931"
+    }
   }
 }
 </script>
