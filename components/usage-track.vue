@@ -1,6 +1,5 @@
 <template>
   <v-data-table
-  
     v-if="tracks"
     :headers="headers"
     :items="tracks"
@@ -75,7 +74,7 @@ export default {
           sortable: false,
           value: 'id'
         },
-        { text: 'Credits', value: 'meter.serialNumber' },
+        { text: 'Credits', value: 'credits' },
         { text: 'Recorded Unit', value: 'recordedUnit' },
         { text: 'Offset Unit', value: 'offSet' },
         { text: 'Valve Status', value: 'status' },

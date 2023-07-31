@@ -6,7 +6,7 @@
         <div>
           <header>
             <h2 class="text-gray-700 ml-2 font-semibold ">
-              Summaries
+              Dashboard
             </h2>
           </header>
         </div>
