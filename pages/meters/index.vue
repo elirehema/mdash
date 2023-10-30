@@ -227,7 +227,7 @@ export default {
           text: 'Off-Set',
           value: 'bill.offSet'
         },
-        { text: 'Control No.', value: 'controlNumber' },
+        { text: 'Meter No.', value: 'serialNumber' },
         { text: 'Manufacturer', value: 'manufacturer' },
         { text: 'Status', value: 'status' },
         { text: 'Last Updated', value: 'updated' },
