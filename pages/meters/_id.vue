@@ -1,7 +1,7 @@
 <template>
   <v-card v-if="meter" elevation="1">
-    <v-container fluid class="d-flex justify-space-between mb-6">
-      <v-card min-width="20%" elevation="1" class="px-5 py-5">
+    <v-container fluid class="d-flex justify-start mb-6">
+      <v-card min-width="20%" elevation="0" outlined class="px-5 py-5">
         <div>
           <p class="font-bold text-primary  flex flex-row" />
 
@@ -13,7 +13,7 @@
           </div>
 
           <p class="font-weight-thin span text-grey pt-2">
-            View meter statistical inforrmations
+            Toggle meter valve open/close based on current status
           </p>
           <div class="mt-5">
             <v-btn
@@ -48,7 +48,7 @@
           </div>
         </div>
       </v-card>
-      <v-card min-width="20%" elevation="1" outlined class="px-8 py-4">
+      <v-card min-width="20%" elevation="0" outlined class="pa-4 mx-2">
         <div>
           <div class="d-flex justify-space-between">
             <span> Serial No: </span>
@@ -67,15 +67,116 @@
             <span>{{ meter.bill.credits }}</span>
           </div>
           <div class="d-flex justify-space-between">
-            <span> Batch No: </span>
-            <span>{{ meter.batchNumber }}</span>
-          </div>
-          <div class="d-flex justify-space-between">
             <span> Offset: </span>
             <span>{{ meter.bill.offSet }}</span>
           </div>
+          <div class="d-flex justify-space-between">
+            <span> Arrear Amount: </span>
+            <span>{{ meter.bill.arrears }}</span>
+          </div>
+          <div class="d-flex justify-space-between">
+            <span> Arrear Deduction Percentage: </span>
+            <span>{{ meter.bill.deduction }} %</span>
+          </div>
+          <div class="d-flex justify-space-between">
+            <span> Deduction Allowed ? : </span>
+            <v-icon v-if="meter.bill.deductArrears" small>
+              mdi-check
+            </v-icon>
+            <v-icon v-else small>
+              mdi-close
+            </v-icon>
+          </div>
         </div>
       </v-card>
+      <v-spacer />
+      <div class="d-flex flex-column">
+        <div class="mb-3">
+          <v-dialog
+            v-model="dialog"
+            persistent
+            max-width="500"
+          >
+            <template #activator="{ on, attrs }">
+              <v-btn
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon left>
+                  mdi-pencil
+                </v-icon>
+                Update Arrears
+              </v-btn>
+            </template>
+            <v-card>
+              <v-toolbar flat color="primary">
+                <v-toolbar-title class="white--text font-weight-bold">
+                  Update Meter Arrears
+                </v-toolbar-title>
+              </v-toolbar>
+              <v-card-text class="mt-4">
+                <v-row>
+                  <v-col
+                    cols="12"
+                  >
+                    <v-text-field
+                      v-model="editedItem.amount"
+                      label="Arrear Amount"
+                      outlined
+                      dense
+                      clearable
+                    />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                  >
+                    <v-text-field
+                      v-model="editedItem.percentage"
+                      label="Arrear Deduction Percentage"
+                      outlined
+                      dense
+                      clearable
+                    />
+                  </v-col>
+                </v-row>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer />
+                <v-btn
+                  color="green darken-1"
+                  text
+                  @click="updateMeterArrears"
+                >
+                  Set Arrear
+                </v-btn>
+                <v-btn
+                  color="green darken-1"
+                  text
+                  @click="dialog = false"
+                >
+                  Cancel
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </div>
+        <div v-if="parseFloat(meter.bill.arrears)>0">
+          <v-btn v-if="!meter.bill.deductArrears" color="primary" @click.stop="collectArrears(1)">
+            <v-icon left>
+              mdi-play
+            </v-icon>
+            Resume Arrears
+          </v-btn>
+          <v-btn v-else color="error" @click.stop="collectArrears(0)">
+            <v-icon left>
+              mdi-play-pause
+            </v-icon>
+            Pause Arrears
+          </v-btn>
+        </div>
+      </div>
     </v-container>
 
     <meter-downlink-commands v-if="shodownlinks" :pages="pages" :downlinks="downlinks" @paginate="paginatedownlinks" @update="shodownlinks = !shodownlinks" />
@@ -98,7 +199,12 @@ export default {
       downlinks: null,
       pages: 1,
       shodownlinks: false,
-      loading: false
+      loading: false,
+      dialog: false,
+      editedItem: {
+        percentage: 0.0,
+        amount: 0.0
+      }
     }
   },
   computed: {},
@@ -109,10 +215,13 @@ export default {
   },
   methods: {
     async requestmeterinformation () {
+      this.dialog = false
       await this.$api
         .$get(`/meters/${this.$route.params.id}`)
         .then((response) => {
           this.meter = response
+          this.editedItem.percentage = parseFloat(respose.bill.deduction)
+          this.editedItem.amount = parseFloat(respose.bill.arrears)
         })
         .catch(() => {})
     },
@@ -133,7 +242,7 @@ export default {
           this.page = response.currentPage
           this.tracks = response.results
         })
-        .catch((err) => {})
+        .catch((_err) => {})
     },
     async paginatedownlinks (it) {
       await this.$api
@@ -143,7 +252,27 @@ export default {
           this.page = response.currentPage
           this.downlinks = response.results
         })
-        .catch((err) => {})
+        .catch((_err) => {})
+    },
+    async collectArrears (it) {
+      await this.$api
+        .$put(`/meters/${this.$route.params.id}/deductions`, null, { params: { action: it } })
+        .then((_response) => {
+          setTimeout(() => {
+            this.requestmeterinformation()
+          }, 5000)
+        })
+        .catch(() => {})
+    },
+    async updateMeterArrears () {
+      await this.$api
+        .$put(`/meters/${this.$route.params.id}/arrears`, this.editedItem)
+        .then((_response) => {
+          setTimeout(() => {
+            this.requestmeterinformation()
+          }, 5000)
+        })
+        .catch(() => {})
     }
   }
 }
